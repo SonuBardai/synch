@@ -11,7 +11,7 @@ type Props = {
   defaultOpen?: boolean;
 };
 
-const CustomModal = ({ children, subheading, title, defaultOpen }: Props) => {
+const CustomModal = ({ children, subheading, title }: Props) => {
   const { isOpen, setClose } = useModal();
   const handleClose = () => setClose();
 
