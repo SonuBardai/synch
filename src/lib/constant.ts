@@ -113,6 +113,10 @@ export const EditorCanvasDefaultCardTypes = {
     type: "Action",
   },
   Slack: { description: "Send a notification to slack", type: "Action" },
+  // Solana: {
+  //   description: "Action triggered from the Solana blockchain",
+  //   type: "Trigger",
+  // },
   "Google Drive": {
     description: "Connect with Google drive to trigger actions or to create files and folders.",
     type: "Trigger",
