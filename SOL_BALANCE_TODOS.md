@@ -1,0 +1,9 @@
+- Create new workflow
+    - Trigger
+        - cronjob
+            - option to set cadence
+            - option to input public key to monitor
+            - option to select the information that needs to be extracted for the action (Current balance)
+    - Action
+        - select a bunch of actions - Discord, Email
+        - post whatever was extracted from the Trigger
