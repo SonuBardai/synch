@@ -9,7 +9,10 @@ const DashboardPage = () => {
         Dashboard
         <WorkflowButton />
       </h1>
-      <Workflows />
+      <div>
+        <h2 className="text-xl py-2 px-6">Your Workflows</h2>
+        <Workflows />
+      </div>
     </div>
   );
 };
