@@ -1,7 +1,7 @@
-import { CardBody, CardContainer, CardItem } from "@/components/global/3dCard";
-import { HeroParallax } from "@/components/global/connectParallax";
-import { ContainerScroll } from "@/components/global/containerScrollAnimation";
-import { InfiniteMovingCards } from "@/components/global/infiniteMovingCards";
+import { CardBody, CardContainer, CardItem } from "@/components/global/3d-card";
+import { HeroParallax } from "@/components/global/connect-parallax";
+import { ContainerScroll } from "@/components/global/container-scroll-animation";
+import { InfiniteMovingCards } from "@/components/global/infinite-moving-cards";
 import { LampComponent } from "@/components/global/lamp";
 import Navbar from "@/components/global/navbar";
 import { Button } from "@/components/ui/button";
