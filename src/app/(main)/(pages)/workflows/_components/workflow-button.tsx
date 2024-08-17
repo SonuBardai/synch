@@ -24,9 +24,9 @@ const WorkflowButton = () => {
 
   return (
     <Button
-      size={"icon"}
+      className="flex items-center gap-2"
       onClick={handleClick}
-      // {...(credits !== "0"
+      // {...(credits !== "0" // TODO: Check for credits when creating workflows
       //   ? {
       //       onClick: handleClick,
       //     }
@@ -34,7 +34,7 @@ const WorkflowButton = () => {
       //       disabled: true,
       //     })}
     >
-      <Plus />
+      <Plus /> New Workflow
     </Button>
   );
 };
