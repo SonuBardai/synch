@@ -1,21 +1,23 @@
-import { ConnectionProviderProps } from '@/providers/connections-provider'
-import { EditorState } from '@/providers/editor-provider'
-import { useFuzzieStore } from '@/store'
-import React from 'react'
-import ContentBasedOnTitle from './content-based-on-title'
+import { ConnectionProviderProps } from '@/providers/connections-provider';
+import { EditorState } from '@/providers/editor-provider';
+import { useFuzzieStore } from '@/store';
+import React from 'react';
+import ContentBasedOnTitle from './content-based-on-title';
 
 type Props = {
-  state: EditorState
-  nodeConnection: ConnectionProviderProps
-}
+  state: EditorState;
+  nodeConnection: ConnectionProviderProps;
+};
 
 const RenderOutputAccordion = ({ state, nodeConnection }: Props) => {
+  console.log('STATE: ', state);
+  console.log('NODE CONNECTION: ', nodeConnection);
   const {
     googleFile,
     setGoogleFile,
     selectedSlackChannels,
     setSelectedSlackChannels,
-  } = useFuzzieStore()
+  } = useFuzzieStore();
   return (
     <ContentBasedOnTitle
       nodeConnection={nodeConnection}
@@ -25,7 +27,7 @@ const RenderOutputAccordion = ({ state, nodeConnection }: Props) => {
       selectedSlackChannels={selectedSlackChannels}
       setSelectedSlackChannels={setSelectedSlackChannels}
     />
-  )
-}
+  );
+};
 
-export default RenderOutputAccordion
+export default RenderOutputAccordion;

@@ -1,13 +1,18 @@
-import { EditorCanvasCardType } from "@/lib/types";
-import { useEditor } from "@/providers/editor-provider";
-import React, { useMemo } from "react";
-import { Position, useNodeId } from "reactflow";
-import EditorCanvasIconHelper from "./editor-canvas-card-icon-hepler";
-import CustomHandle from "./custom-handle";
-import { Badge } from "@/components/ui/badge";
+import { EditorCanvasCardType } from '@/lib/types';
+import { useEditor } from '@/providers/editor-provider';
+import React, { MouseEventHandler, useMemo } from 'react';
+import { Position, useNodeId } from 'reactflow';
+import EditorCanvasIconHelper from './editor-canvas-card-icon-hepler';
+import CustomHandle from './custom-handle';
+import { Badge } from '@/components/ui/badge';
 
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import clsx from "clsx";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import clsx from 'clsx';
 
 type Props = {};
 
@@ -18,20 +23,30 @@ const EditorCanvasCardSingle = ({ data }: { data: EditorCanvasCardType }) => {
     return <EditorCanvasIconHelper type={data.type} />;
   }, [data]);
 
+  const onClick = () => {
+    const val = state.editor.elements.find((n) => n.id === nodeId);
+    if (val)
+      dispatch({
+        type: 'SELECTED_ELEMENT',
+        payload: {
+          element: val,
+        },
+      });
+  };
+
   return (
     <>
-      {data.type !== "Trigger" && data.type !== "Google Drive" && <CustomHandle type="target" position={Position.Top} style={{ zIndex: 100 }} />}
+      {data.type !== 'Trigger' && data.type !== 'Google Drive' && (
+        <CustomHandle
+          type="target"
+          position={Position.Top}
+          style={{ zIndex: 100 }}
+        />
+      )}
       <Card
         onClick={(e) => {
           e.stopPropagation();
-          const val = state.editor.elements.find((n) => n.id === nodeId);
-          if (val)
-            dispatch({
-              type: "SELECTED_ELEMENT",
-              payload: {
-                element: val,
-              },
-            });
+          onClick();
         }}
         className="relative max-w-[400px] dark:border-muted-foreground/70"
       >
@@ -52,10 +67,10 @@ const EditorCanvasCardSingle = ({ data }: { data: EditorCanvasCardType }) => {
           {data.type}
         </Badge>
         <div
-          className={clsx("absolute left-3 top-4 h-2 w-2 rounded-full", {
-            "bg-green-500": Math.random() < 0.6,
-            "bg-orange-500": Math.random() >= 0.6 && Math.random() < 0.8,
-            "bg-red-500": Math.random() >= 0.8,
+          className={clsx('absolute left-3 top-4 h-2 w-2 rounded-full', {
+            'bg-green-500': Math.random() < 0.6,
+            'bg-orange-500': Math.random() >= 0.6 && Math.random() < 0.8,
+            'bg-red-500': Math.random() >= 0.8,
           })}
         ></div>
       </Card>

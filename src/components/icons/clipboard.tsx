@@ -1,5 +1,5 @@
-import clsx from 'clsx'
-import React from 'react'
+import clsx from 'clsx';
+import React from 'react';
 
 const Logs = ({ selected }: { selected: boolean }) => {
   return (
@@ -47,7 +47,7 @@ const Logs = ({ selected }: { selected: boolean }) => {
         )}
       />
     </svg>
-  )
-}
+  );
+};
 
-export default Logs
+export default Logs;

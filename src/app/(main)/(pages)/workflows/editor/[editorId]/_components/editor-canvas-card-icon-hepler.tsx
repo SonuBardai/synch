@@ -1,35 +1,51 @@
-"use client";
-import React from "react";
-import { Calendar, CircuitBoard, Cuboid, Database, GitBranch, HardDrive, Mail, MousePointerClickIcon, Plus, Slack, Timer, Webhook, Zap } from "lucide-react";
-import { EditorCanvasTypes } from "@/lib/types";
+'use client';
+import React from 'react';
+import {
+  Calendar,
+  CircuitBoard,
+  Database,
+  GitBranch,
+  HardDrive,
+  Mail,
+  MousePointerClickIcon,
+  Plus,
+  Slack,
+  Timer,
+  Webhook,
+  Zap,
+  RefreshCcwDot,
+} from 'lucide-react';
+import { EditorCanvasTypes } from '@/lib/types';
 
 type Props = { type: EditorCanvasTypes };
 
 const EditorCanvasIconHelper = ({ type }: Props) => {
   switch (type) {
-    case "Email":
+    case 'Email':
       return <Mail className="flex-shrink-0" size={30} />;
-    case "Condition":
+    case 'Condition':
       return <GitBranch className="flex-shrink-0" size={30} />;
-    case "AI":
+    case 'AI':
       return <CircuitBoard className="flex-shrink-0" size={30} />;
-    case "Slack":
+    case 'Slack':
       return <Slack className="flex-shrink-0" size={30} />;
-    case "Google Drive":
+    case 'Google Drive':
       return <HardDrive className="flex-shrink-0" size={30} />;
     // case "Solana":
     //   return <Cuboid className="flex-shrink-0" size={30} />;
-    case "Notion":
+    case 'Notion':
       return <Database className="flex-shrink-0" size={30} />;
-    case "Custom Webhook":
+    case 'Custom Webhook':
       return <Webhook className="flex-shrink-0" size={30} />;
-    case "Google Calendar":
+    case 'Google Calendar':
       return <Calendar className="flex-shrink-0" size={30} />;
-    case "Trigger":
+    case 'Cronjob':
+      return <RefreshCcwDot className="flex-shrink-0" size={30} />;
+    case 'Trigger':
       return <MousePointerClickIcon className="flex-shrink-0" size={30} />;
-    case "Action":
+    case 'Action':
       return <Zap className="flex-shrink-0" size={30} />;
-    case "Wait":
+    case 'Wait':
       return <Timer className="flex-shrink-0" size={30} />;
     default:
       return <Zap className="flex-shrink-0" size={30} />;

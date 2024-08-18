@@ -1,7 +1,7 @@
-import clsx from 'clsx'
-import React from 'react'
+import clsx from 'clsx';
+import React from 'react';
 
-type Props = { selected: boolean }
+type Props = { selected: boolean };
 
 const Home = ({ selected }: Props) => {
   return (
@@ -29,7 +29,7 @@ const Home = ({ selected }: Props) => {
         )}
       />
     </svg>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

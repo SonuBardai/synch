@@ -1,8 +1,8 @@
-'use client'
-import React from 'react'
-import { motion } from 'framer-motion'
-import { cn } from '@/lib/utils'
-import { SparklesCore } from './sparkles'
+'use client';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { cn } from '@/lib/utils';
+import { SparklesCore } from './sparkles';
 
 export function LampComponent() {
   return (
@@ -21,15 +21,15 @@ export function LampComponent() {
         <br /> Fit You Best
       </motion.h1>
     </LampContainer>
-  )
+  );
 }
 
 export const LampContainer = ({
   children,
   className,
 }: {
-  children: React.ReactNode
-  className?: string
+  children: React.ReactNode;
+  className?: string;
 }) => {
   return (
     <div
@@ -113,5 +113,5 @@ export const LampContainer = ({
         {children}
       </div>
     </div>
-  )
-}
+  );
+};

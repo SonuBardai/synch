@@ -1,6 +1,6 @@
-import React from "react";
-import WorkflowButton from "../workflows/_components/workflow-button";
-import Workflows from "../workflows/_components";
+import React from 'react';
+import WorkflowButton from '../workflows/_components/workflow-button';
+import Workflows from '../workflows/_components';
 
 const DashboardPage = () => {
   return (

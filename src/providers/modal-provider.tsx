@@ -1,5 +1,5 @@
-"use client";
-import { createContext, useContext, useEffect, useState } from "react";
+'use client';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 interface ModalProviderProps {
   children: React.ReactNode;
@@ -31,8 +31,11 @@ const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
     setIsMounted(true);
   }, []);
 
-  const setOpen = async (modal: React.ReactNode, fetchData?: () => Promise<any>) => {
-    console.log("Triggered setOpen");
+  const setOpen = async (
+    modal: React.ReactNode,
+    fetchData?: () => Promise<any>
+  ) => {
+    console.log('Triggered setOpen');
     if (modal) {
       if (fetchData) {
         setData({ ...data, ...(await fetchData()) } || {});
@@ -47,11 +50,11 @@ const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
     setData({});
   };
 
-  console.log("Modal provider");
+  console.log('Modal provider');
 
   if (!isMounted) return null;
 
-  console.log("Rendering modal provider");
+  console.log('Rendering modal provider');
 
   return (
     <ModalContext.Provider value={{ data, setOpen, setClose, isOpen }}>
@@ -64,7 +67,7 @@ const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
 export const useModal = () => {
   const context = useContext(ModalContext);
   if (!context) {
-    throw new Error("useModal must be used within the modal provider");
+    throw new Error('useModal must be used within the modal provider');
   }
   return context;
 };

@@ -1,8 +1,16 @@
-import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle } from "@/components/ui/drawer";
-import { useModal } from "@/providers/modal-provider";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+} from '@/components/ui/drawer';
+import { useModal } from '@/providers/modal-provider';
 
-import React from "react";
-import { Button } from "../ui/button";
+import React from 'react';
+import { Button } from '../ui/button';
 
 type Props = {
   title: string;

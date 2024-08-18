@@ -1,6 +1,6 @@
-import React from "react";
-import WorkflowButton from "./_components/workflow-button";
-import Workflows from "./_components";
+import React from 'react';
+import WorkflowButton from './_components/workflow-button';
+import Workflows from './_components';
 
 type Props = {};
 

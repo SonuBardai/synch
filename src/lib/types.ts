@@ -1,17 +1,17 @@
-import { ConnectionProviderProps } from "@/providers/connections-provider";
-import { z } from "zod";
+import { ConnectionProviderProps } from '@/providers/connections-provider';
+import { z } from 'zod';
 
 export const EditUserProfileSchema = z.object({
-  email: z.string().email("Required"),
-  name: z.string().min(1, "Required"),
+  email: z.string().email('Required'),
+  name: z.string().min(1, 'Required'),
 });
 
 export const WorkflowFormSchema = z.object({
-  name: z.string().min(1, "Required"),
-  description: z.string().min(1, "Required"),
+  name: z.string().min(1, 'Required'),
+  description: z.string().min(1, 'Required'),
 });
 
-export type ConnectionTypes = "Google Drive" | "Notion" | "Slack" | "Discord";
+export type ConnectionTypes = 'Google Drive' | 'Notion' | 'Slack' | 'Discord';
 
 export type Connection = {
   title: ConnectionTypes;
@@ -24,18 +24,19 @@ export type Connection = {
 };
 
 export type EditorCanvasTypes =
-  | "Email"
-  | "Condition"
-  | "AI"
-  | "Slack"
-  | "Google Drive"
+  | 'Email'
+  | 'Condition'
+  | 'AI'
+  | 'Slack'
+  | 'Google Drive'
   // | "Solana"
-  | "Notion"
-  | "Custom Webhook"
-  | "Google Calendar"
-  | "Trigger"
-  | "Action"
-  | "Wait";
+  | 'Cronjob'
+  | 'Notion'
+  | 'Custom Webhook'
+  | 'Google Calendar'
+  | 'Trigger'
+  | 'Action'
+  | 'Wait';
 
 export type EditorCanvasCardType = {
   title: string;
@@ -48,7 +49,7 @@ export type EditorCanvasCardType = {
 
 export type EditorNodeType = {
   id: string;
-  type: EditorCanvasCardType["type"];
+  type: EditorCanvasTypes;
   position: {
     x: number;
     y: number;
@@ -60,7 +61,7 @@ export type EditorNode = EditorNodeType;
 
 export type EditorActions =
   | {
-      type: "LOAD_DATA";
+      type: 'LOAD_DATA';
       payload: {
         elements: EditorNode[];
         edges: {
@@ -71,23 +72,23 @@ export type EditorActions =
       };
     }
   | {
-      type: "UPDATE_NODE";
+      type: 'UPDATE_NODE';
       payload: {
         elements: EditorNode[];
       };
     }
-  | { type: "REDO" }
-  | { type: "UNDO" }
+  | { type: 'REDO' }
+  | { type: 'UNDO' }
   | {
-      type: "SELECTED_ELEMENT";
+      type: 'SELECTED_ELEMENT';
       payload: {
         element: EditorNode;
       };
     };
 
 export const nodeMapper: Record<string, string> = {
-  Notion: "notionNode",
-  Slack: "slackNode",
-  Discord: "discordNode",
-  "Google Drive": "googleNode",
+  Notion: 'notionNode',
+  Slack: 'slackNode',
+  Discord: 'discordNode',
+  'Google Drive': 'googleNode',
 };

@@ -1,12 +1,12 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import { toast } from "sonner";
-import axios from "axios";
-import { getGoogleListener } from "../../../_actions/workflow-connections";
-import { Button } from "@/components/ui/button";
-import { Card, CardDescription } from "@/components/ui/card";
-import { CardContainer } from "@/components/global/3d-card";
-import Spinner from "@/components/icons/spinner";
+'use client';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'sonner';
+import axios from 'axios';
+import { getGoogleListener } from '../../../_actions/workflow-connections';
+import { Button } from '@/components/ui/button';
+import { Card, CardDescription } from '@/components/ui/card';
+import { CardContainer } from '@/components/global/3d-card';
+import Spinner from '@/components/icons/spinner';
 
 type Props = {};
 
@@ -16,7 +16,7 @@ const GoogleDriveFiles = (props: Props) => {
 
   const reqGoogle = async () => {
     setLoading(true);
-    const response = await axios.get("/api/drive-activity");
+    const response = await axios.get('/api/drive-activity');
     if (response) {
       toast.message(response.data);
       setLoading(false);
@@ -56,7 +56,7 @@ const GoogleDriveFiles = (props: Props) => {
               <Spinner />
             </div>
           ) : (
-            "Create Listener"
+            'Create Listener'
           )}
         </Button>
       )}

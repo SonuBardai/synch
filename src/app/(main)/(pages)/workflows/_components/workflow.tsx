@@ -1,32 +1,32 @@
-import React from 'react'
+import React from 'react';
 import {
   Card,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-import Link from 'next/link'
-import Image from 'next/image'
-import { Label } from '@/components/ui/label'
-import { Switch } from '@/components/ui/switch'
-import { toast } from 'sonner'
-import { onFlowPublish } from '../_actions/workflow-connections'
+} from '@/components/ui/card';
+import Link from 'next/link';
+import Image from 'next/image';
+import { Label } from '@/components/ui/label';
+import { Switch } from '@/components/ui/switch';
+import { toast } from 'sonner';
+import { onFlowPublish } from '../_actions/workflow-connections';
 
 type Props = {
-  name: string
-  description: string
-  id: string
-  publish: boolean | null
-}
+  name: string;
+  description: string;
+  id: string;
+  publish: boolean | null;
+};
 
 const Workflow = ({ description, id, name, publish }: Props) => {
   const onPublishFlow = async (event: any) => {
     const response = await onFlowPublish(
       id,
       event.target.ariaChecked === 'false'
-    )
-    if (response) toast.message(response)
-  }
+    );
+    if (response) toast.message(response);
+  };
 
   return (
     <Card className="flex w-full items-center justify-between">
@@ -62,10 +62,7 @@ const Workflow = ({ description, id, name, publish }: Props) => {
         </Link>
       </CardHeader>
       <div className="flex flex-col items-center gap-2 p-4">
-        <Label
-          htmlFor="airplane-mode"
-          className="text-muted-foreground"
-        >
+        <Label htmlFor="airplane-mode" className="text-muted-foreground">
           {publish! ? 'On' : 'Off'}
         </Label>
         <Switch
@@ -75,7 +72,7 @@ const Workflow = ({ description, id, name, publish }: Props) => {
         />
       </div>
     </Card>
-  )
-}
+  );
+};
 
-export default Workflow
+export default Workflow;

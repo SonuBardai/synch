@@ -1,18 +1,25 @@
-import { google } from "googleapis";
-import { auth, clerkClient } from "@clerk/nextjs/server";
-import { NextResponse } from "next/server";
-import { v4 as uuidv4 } from "uuid";
-import { db } from "@/lib/db";
+import { google } from 'googleapis';
+import { auth, clerkClient } from '@clerk/nextjs/server';
+import { NextResponse } from 'next/server';
+import { v4 as uuidv4 } from 'uuid';
+import { db } from '@/lib/db';
 
 export async function GET() {
-  const oauth2Client = new google.auth.OAuth2(process.env.GOOGLE_CLIENT_ID, process.env.GOOGLE_CLIENT_SECRET, process.env.OAUTH2_REDIRECT_URI);
+  const oauth2Client = new google.auth.OAuth2(
+    process.env.GOOGLE_CLIENT_ID,
+    process.env.GOOGLE_CLIENT_SECRET,
+    process.env.OAUTH2_REDIRECT_URI
+  );
 
   const { userId } = auth();
   if (!userId) {
-    return NextResponse.json({ message: "User not found" });
+    return NextResponse.json({ message: 'User not found' });
   }
 
-  const clerkResponse = await clerkClient.users.getUserOauthAccessToken(userId, "oauth_google");
+  const clerkResponse = await clerkClient.users.getUserOauthAccessToken(
+    userId,
+    'oauth_google'
+  );
 
   const accessToken = clerkResponse.data[0].token;
   oauth2Client.setCredentials({
@@ -20,7 +27,7 @@ export async function GET() {
   });
 
   const drive = google.drive({
-    version: "v3",
+    version: 'v3',
     auth: oauth2Client,
   });
 
@@ -39,7 +46,7 @@ export async function GET() {
     } else {
       return Response.json(
         {
-          message: "No files found",
+          message: 'No files found',
         },
         {
           status: 200,
@@ -49,7 +56,7 @@ export async function GET() {
   } catch (error) {
     return Response.json(
       {
-        message: "Something went wrong",
+        message: 'Something went wrong',
       },
       {
         status: 500,

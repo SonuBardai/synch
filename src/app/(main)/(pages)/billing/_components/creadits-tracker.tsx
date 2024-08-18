@@ -1,11 +1,11 @@
-import React from 'react'
-import { Progress } from '@/components/ui/progress'
-import { Card, CardContent, CardTitle } from '@/components/ui/card'
+import React from 'react';
+import { Progress } from '@/components/ui/progress';
+import { Card, CardContent, CardTitle } from '@/components/ui/card';
 
 type Props = {
-  credits: number
-  tier: string
-}
+  credits: number;
+  tier: string;
+};
 
 const CreditTracker = ({ credits, tier }: Props) => {
   return (
@@ -18,8 +18,8 @@ const CreditTracker = ({ credits, tier }: Props) => {
               tier == 'Free'
                 ? credits * 10
                 : tier == 'Unlimited'
-                ? 100
-                : credits
+                  ? 100
+                  : credits
             }
             className="w-full"
           />
@@ -32,7 +32,7 @@ const CreditTracker = ({ credits, tier }: Props) => {
         </CardContent>
       </Card>
     </div>
-  )
-}
+  );
+};
 
-export default CreditTracker
+export default CreditTracker;

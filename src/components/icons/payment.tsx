@@ -1,9 +1,9 @@
-import clsx from 'clsx'
-import React from 'react'
+import clsx from 'clsx';
+import React from 'react';
 
 type Props = {
-  selected: boolean
-}
+  selected: boolean;
+};
 
 const Payment = ({ selected }: Props) => {
   return (
@@ -44,7 +44,7 @@ const Payment = ({ selected }: Props) => {
         )}
       />
     </svg>
-  )
-}
+  );
+};
 
-export default Payment
+export default Payment;

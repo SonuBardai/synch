@@ -1,10 +1,10 @@
-import React from 'react'
+import React from 'react';
 
-type Props = {}
+type Props = {};
 
 const Page = (props: Props) => {
   // TODO: If the user tries to access this route you should send them to their first workflow they have or create one.
-  return <div>Page</div>
-}
+  return <div>Page</div>;
+};
 
-export default Page
+export default Page;

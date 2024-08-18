@@ -1,10 +1,10 @@
-"use client";
-import React from "react";
-import UploadCareButton from "./uploadcare-button";
-import { useRouter } from "next/navigation";
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { X } from "lucide-react";
+'use client';
+import React from 'react';
+import UploadCareButton from './uploadcare-button';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import { Button } from '@/components/ui/button';
+import { X } from 'lucide-react';
 
 type Props = {
   userImage: string | null;
@@ -29,9 +29,17 @@ const ProfilePicture = ({ userImage, onDelete, onUpload }: Props) => {
         {userImage ? (
           <>
             <div className="relative h-full w-2/12">
-              <Image src={userImage} alt="User_Image" fill className="object-cover rounded-full w-full h-full aspect-square" />
+              <Image
+                src={userImage}
+                alt="User_Image"
+                fill
+                className="object-cover rounded-full w-full h-full aspect-square"
+              />
             </div>
-            <Button onClick={onRemoveProfileImage} className="bg-transparent text-white/70 hover:bg-transparent hover:text-white">
+            <Button
+              onClick={onRemoveProfileImage}
+              className="bg-transparent text-white/70 hover:bg-transparent hover:text-white"
+            >
               <X /> Remove Logo
             </Button>
           </>

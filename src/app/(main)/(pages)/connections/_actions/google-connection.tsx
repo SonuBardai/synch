@@ -1,18 +1,25 @@
-"use server";
-import { auth, clerkClient } from "@clerk/nextjs/server";
-import { google } from "googleapis";
+'use server';
+import { auth, clerkClient } from '@clerk/nextjs/server';
+import { google } from 'googleapis';
 
 export const getFileMetaData = async () => {
-  "use server";
-  const oauth2Client = new google.auth.OAuth2(process.env.GOOGLE_CLIENT_ID, process.env.GOOGLE_CLIENT_SECRET, process.env.OAUTH2_REDIRECT_URI);
+  'use server';
+  const oauth2Client = new google.auth.OAuth2(
+    process.env.GOOGLE_CLIENT_ID,
+    process.env.GOOGLE_CLIENT_SECRET,
+    process.env.OAUTH2_REDIRECT_URI
+  );
 
   const { userId } = auth();
 
   if (!userId) {
-    return { message: "User not found" };
+    return { message: 'User not found' };
   }
 
-  const clerkResponse = await clerkClient.users.getUserOauthAccessToken(userId, "oauth_google");
+  const clerkResponse = await clerkClient.users.getUserOauthAccessToken(
+    userId,
+    'oauth_google'
+  );
 
   clerkResponse.data[0].token;
 
@@ -22,7 +29,7 @@ export const getFileMetaData = async () => {
     access_token: accessToken,
   });
 
-  const drive = google.drive({ version: "v3", auth: oauth2Client });
+  const drive = google.drive({ version: 'v3', auth: oauth2Client });
   const response = await drive.files.list();
 
   if (response) {

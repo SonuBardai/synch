@@ -1,27 +1,12 @@
-'use client'
-import React from 'react'
-import ConnectionCard from '@/app/(main)/(pages)/connections/_components/connection-card'
-import { AccordionContent } from '@/components/ui/accordion'
-import MultipleSelector from '@/components/ui/multiple-selector'
-import { Connection } from '@/lib/types'
-import { useNodeConnections } from '@/providers/connections-provider'
-import { EditorState } from '@/providers/editor-provider'
-import { useFuzzieStore } from '@/store'
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-} from '@/components/ui/command'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover'
-import { CheckIcon, ChevronsUpDown } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
+'use client';
+import React from 'react';
+import ConnectionCard from '@/app/(main)/(pages)/connections/_components/connection-card';
+import { AccordionContent } from '@/components/ui/accordion';
+import MultipleSelector from '@/components/ui/multiple-selector';
+import { Connection } from '@/lib/types';
+import { useNodeConnections } from '@/providers/connections-provider';
+import { EditorState } from '@/providers/editor-provider';
+import { useFuzzieStore } from '@/store';
 
 const frameworks = [
   {
@@ -44,14 +29,14 @@ const frameworks = [
     value: 'astro',
     label: 'Astro',
   },
-]
+];
 
 const RenderConnectionAccordion = ({
   connection,
   state,
 }: {
-  connection: Connection
-  state: EditorState
+  connection: Connection;
+  state: EditorState;
 }) => {
   const {
     title,
@@ -61,22 +46,22 @@ const RenderConnectionAccordion = ({
     accessTokenKey,
     alwaysTrue,
     slackSpecial,
-  } = connection
+  } = connection;
 
-  const { nodeConnection } = useNodeConnections()
+  const { nodeConnection } = useNodeConnections();
   const { slackChannels, selectedSlackChannels, setSelectedSlackChannels } =
-    useFuzzieStore()
+    useFuzzieStore();
 
-  const [open, setOpen] = React.useState(false)
-  const [value, setValue] = React.useState('')
+  const [open, setOpen] = React.useState(false);
+  const [value, setValue] = React.useState('');
 
-  const connectionData = (nodeConnection as any)[connectionKey]
+  const connectionData = (nodeConnection as any)[connectionKey];
 
   const isConnected =
     alwaysTrue ||
     (nodeConnection[connectionKey] &&
       accessTokenKey &&
-      connectionData[accessTokenKey!])
+      connectionData[accessTokenKey!]);
 
   return (
     <AccordionContent key={title}>
@@ -116,7 +101,7 @@ const RenderConnectionAccordion = ({
         </>
       )}
     </AccordionContent>
-  )
-}
+  );
+};
 
-export default RenderConnectionAccordion
+export default RenderConnectionAccordion;

@@ -1,10 +1,18 @@
-"use server";
+'use server';
 
-import { db } from "@/lib/db";
-import { currentUser } from "@clerk/nextjs/server";
-import axios from "axios";
+import { db } from '@/lib/db';
+import { currentUser } from '@clerk/nextjs/server';
+import axios from 'axios';
 
-export const onDiscordConnect = async (channel_id: string, webhook_id: string, webhook_name: string, webhook_url: string, id: string, guild_name: string, guild_id: string) => {
+export const onDiscordConnect = async (
+  channel_id: string,
+  webhook_id: string,
+  webhook_name: string,
+  webhook_url: string,
+  id: string,
+  guild_name: string,
+  guild_id: string
+) => {
   //check if webhook id params set
   if (webhook_id) {
     //check if webhook exists in database with userid
@@ -36,7 +44,7 @@ export const onDiscordConnect = async (channel_id: string, webhook_id: string, w
           connections: {
             create: {
               userId: id,
-              type: "Discord",
+              type: 'Discord',
             },
           },
         },
@@ -73,7 +81,7 @@ export const onDiscordConnect = async (channel_id: string, webhook_id: string, w
             connections: {
               create: {
                 userId: id,
-                type: "Discord",
+                type: 'Discord',
               },
             },
           },
@@ -103,12 +111,12 @@ export const getDiscordConnectionUrl = async () => {
 
 export const postContentToWebHook = async (content: string, url: string) => {
   console.log(content);
-  if (content != "") {
+  if (content != '') {
     const posted = await axios.post(url, { content });
     if (posted) {
-      return { message: "success" };
+      return { message: 'success' };
     }
-    return { message: "failed request" };
+    return { message: 'failed request' };
   }
-  return { message: "String empty" };
+  return { message: 'String empty' };
 };

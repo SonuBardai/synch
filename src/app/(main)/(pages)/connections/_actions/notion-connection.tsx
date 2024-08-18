@@ -1,11 +1,18 @@
-"use server";
+'use server';
 
-import { db } from "@/lib/db";
-import { currentUser } from "@clerk/nextjs/server";
-import { Client } from "@notionhq/client";
+import { db } from '@/lib/db';
+import { currentUser } from '@clerk/nextjs/server';
+import { Client } from '@notionhq/client';
 
-export const onNotionConnect = async (access_token: string, workspace_id: string, workspace_icon: string, workspace_name: string, database_id: string, id: string) => {
-  "use server";
+export const onNotionConnect = async (
+  access_token: string,
+  workspace_id: string,
+  workspace_icon: string,
+  workspace_name: string,
+  database_id: string,
+  id: string
+) => {
+  'use server';
   if (access_token) {
     //check if notion is connected
     const notion_connected = await db.notion.findFirst({
@@ -34,7 +41,7 @@ export const onNotionConnect = async (access_token: string, workspace_id: string
           connections: {
             create: {
               userId: id,
-              type: "Notion",
+              type: 'Notion',
             },
           },
         },
@@ -56,7 +63,10 @@ export const getNotionConnection = async () => {
   }
 };
 
-export const getNotionDatabase = async (databaseId: string, accessToken: string) => {
+export const getNotionDatabase = async (
+  databaseId: string,
+  accessToken: string
+) => {
   const notion = new Client({
     auth: accessToken,
   });
@@ -64,7 +74,11 @@ export const getNotionDatabase = async (databaseId: string, accessToken: string)
   return response;
 };
 
-export const onCreateNewPageInDatabase = async (databaseId: string, accessToken: string, content: string) => {
+export const onCreateNewPageInDatabase = async (
+  databaseId: string,
+  accessToken: string,
+  content: string
+) => {
   const notion = new Client({
     auth: accessToken,
   });
@@ -72,7 +86,7 @@ export const onCreateNewPageInDatabase = async (databaseId: string, accessToken:
   console.log(databaseId);
   const response = await notion.pages.create({
     parent: {
-      type: "database_id",
+      type: 'database_id',
       database_id: databaseId,
     },
     properties: {
