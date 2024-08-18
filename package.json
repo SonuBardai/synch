@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "fmt": "prettier --write ."
+    "fmt": "prettier --write .",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@clerk/nextjs": "^5.3.0",
@@ -61,11 +62,16 @@
     "eslint-config-next": "14.2.5",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.2.9",
     "postcss": "^8",
     "prettier": "^3.3.3",
     "prisma": "^5.18.0",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,css,scss,md}": "prettier --write"
   },
   "main": "src/app/page.tsx",
   "author": "Sonu Bardai <sonubardai9@gmail.com>",
