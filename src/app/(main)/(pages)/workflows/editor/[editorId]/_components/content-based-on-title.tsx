@@ -54,21 +54,27 @@ const ContentBasedOnTitle = ({
 
   useEffect(() => {
     const reqGoogle = async () => {
-      const response: { data: { message: { files: any } } } =
-        await axios.get('/api/drive');
-      if (response) {
-        console.log(response.data.message.files[0]);
-        toast.message('Fetched File');
-        setFile(response.data.message.files[0]);
-      } else {
-        toast.error('Something went wrong');
+      try {
+        const response: { data: { message: { files: any } } } =
+          await axios.get('/api/drive');
+        if (response) {
+          console.log(response.data.message.files[0]);
+          toast.message('Fetched File');
+          setFile(response.data.message.files[0]);
+        } else {
+          toast.error('Something went wrong');
+        }
+      } catch (error) {
+        // toast.error('Something went wrong');
       }
     };
-    reqGoogle();
+
+    // TODO: Fix this because google drive doesn't automatically get connected. Make this explicit and add a conditional call
+    // reqGoogle();
   }, []);
 
   // @ts-ignore
-  const nodeConnectionType: any = nodeConnection[nodeMapper[title]];
+  const nodeConnectionType = nodeConnection[nodeMapper[title]];
   if (!nodeConnectionType) return <p>Not connected</p>;
 
   const isConnected =
