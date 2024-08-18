@@ -29,7 +29,7 @@ const FlowInstance = ({ children, edges, nodes }: Props) => {
     );
 
     if (flow) toast.message(flow.message);
-  }, [nodeConnection]);
+  }, [nodeConnection, edges, nodes]);
 
   const onPublishWorkflow = useCallback(async () => {
     const response = await onFlowPublish(pathname.split('/').pop()!, true);
