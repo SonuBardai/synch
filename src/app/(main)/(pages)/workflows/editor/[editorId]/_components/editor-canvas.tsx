@@ -31,14 +31,17 @@ import EditorCanvasSidebar from './editor-canvas-sidebar';
 import { onGetNodesEdges } from '../../../_actions/workflow-connections';
 import { v4 } from 'uuid';
 import Spinner from '@/components/icons/spinner';
+import { Workflows } from '@prisma/client';
 
-type Props = {};
+type Props = {
+  workflow: Workflows;
+};
 
 const initialNodes: EditorNodeType[] = [];
 
 const initialEdges: { id: string; source: string; target: string }[] = [];
 
-const EditorCanvas = (props: Props) => {
+const EditorCanvas = ({ workflow }: Props) => {
   const { dispatch, state } = useEditor();
   const [nodes, setNodes] = useState(initialNodes);
   const [edges, setEdges] = useState(initialEdges);
@@ -155,7 +158,7 @@ const EditorCanvas = (props: Props) => {
       Condition: EditorCanvasCardSingle,
       AI: EditorCanvasCardSingle,
       Slack: EditorCanvasCardSingle,
-      'Google Drive': EditorCanvasCardSingle,
+      // 'Google Drive': EditorCanvasCardSingle,
       Notion: EditorCanvasCardSingle,
       Discord: EditorCanvasCardSingle,
       'Custom Webhook': EditorCanvasCardSingle,
@@ -233,7 +236,7 @@ const EditorCanvas = (props: Props) => {
           </div>
         ) : (
           <FlowInstance edges={edges} nodes={nodes}>
-            <EditorCanvasSidebar nodes={nodes} />
+            <EditorCanvasSidebar nodes={nodes} workflow={workflow} />
           </FlowInstance>
         )}
       </ResizablePanel>

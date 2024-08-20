@@ -118,11 +118,11 @@ export const EditorCanvasDefaultCardTypes = {
   //   description: "Action triggered from the Solana blockchain",
   //   type: "Trigger",
   // },
-  'Google Drive': {
-    description:
-      'Connect with Google drive to trigger actions or to create files and folders.',
-    type: 'Trigger',
-  },
+  // 'Google Drive': {
+  //   description:
+  //     'Connect with Google drive to trigger actions or to create files and folders.',
+  //   type: 'Trigger',
+  // },
   Notion: { description: 'Create entries directly in notion.', type: 'Action' },
   'Custom Webhook': {
     description:
@@ -134,7 +134,7 @@ export const EditorCanvasDefaultCardTypes = {
     type: 'Action',
   },
   Cronjob: {
-    description: 'Create a new cronjob',
+    description: 'Run the workflow on a scheduled cronjob',
     type: 'Trigger',
   },
   'Google Calendar': {
@@ -156,13 +156,13 @@ export const EditorCanvasDefaultCardTypes = {
 };
 
 export const CONNECTIONS: Connection[] = [
-  {
-    title: 'Google Drive',
-    description: 'Connect your google drive to listen to folder changes',
-    image: '/googleDrive.png',
-    connectionKey: 'googleNode',
-    // alwaysTrue: true,
-  },
+  // {
+  //   title: 'Google Drive',
+  //   description: 'Connect your google drive to listen to folder changes',
+  //   image: '/googleDrive.png',
+  //   connectionKey: 'googleNode',
+  //   // alwaysTrue: true,
+  // },
   {
     title: 'Discord',
     description: 'Connect your discord to send notification and messages',

@@ -1,6 +1,8 @@
 'use server';
+
 import { Option } from '@/components/ui/multiple-selector';
 import { db } from '@/lib/db';
+import { CronjobConfigType } from '@/lib/types';
 import { auth, currentUser } from '@clerk/nextjs/server';
 
 export const getGoogleListener = async () => {
@@ -41,7 +43,8 @@ export const onCreateNodeTemplate = async (
   workflowId: string,
   channels?: Option[],
   accessToken?: string,
-  notionDbId?: string
+  notionDbId?: string,
+  cronjobConfig?: CronjobConfigType
 ) => {
   if (type === 'Discord') {
     const response = await db.workflows.update({
@@ -133,6 +136,19 @@ export const onCreateNodeTemplate = async (
 
     if (response) return 'Notion template saved';
   }
+
+  if (type === 'Cronjob') {
+    const response = await db.workflows.update({
+      where: {
+        id: workflowId,
+      },
+      data: {
+        ...cronjobConfig,
+      },
+    });
+
+    if (response) return 'Cronjob template saved';
+  }
 };
 
 export const onGetWorkflows = async () => {
@@ -164,6 +180,22 @@ export const onCreateWorkflow = async (name: string, description: string) => {
     if (workflow) return { message: 'workflow created' };
     return { message: 'Oops! try again' };
   }
+};
+
+export const onSaveCronjob = async (
+  workflowId: string,
+  cronjobConfig: CronjobConfigType
+) => {
+  console.log('onSaveCronjob', cronjobConfig);
+  const response = await db.workflows.update({
+    where: {
+      id: workflowId,
+    },
+    data: {
+      ...cronjobConfig,
+    },
+  });
+  return response;
 };
 
 export const onGetNodesEdges = async (flowId: string) => {

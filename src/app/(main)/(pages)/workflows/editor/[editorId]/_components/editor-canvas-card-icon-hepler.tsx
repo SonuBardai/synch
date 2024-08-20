@@ -29,8 +29,8 @@ const EditorCanvasIconHelper = ({ type }: Props) => {
       return <CircuitBoard className="flex-shrink-0" size={30} />;
     case 'Slack':
       return <Slack className="flex-shrink-0" size={30} />;
-    case 'Google Drive':
-      return <HardDrive className="flex-shrink-0" size={30} />;
+    // case 'Google Drive':
+    //   return <HardDrive className="flex-shrink-0" size={30} />;
     // case "Solana":
     //   return <Cuboid className="flex-shrink-0" size={30} />;
     case 'Notion':

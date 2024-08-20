@@ -96,9 +96,7 @@ const Connections = async (props: Props) => {
       return (connections[connection.type] = true);
     });
 
-    // Google Drive connection will always be true
-    // as it is given access during the login process
-    return { ...connections, 'Google Drive': true };
+    return { ...connections };
   };
 
   const connections = await onUserConnections();

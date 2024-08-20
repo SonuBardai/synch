@@ -11,6 +11,23 @@ export const WorkflowFormSchema = z.object({
   description: z.string().min(1, 'Required'),
 });
 
+export enum RunEveryUnitOptions {
+  minute = 'minute',
+  hour = 'hour',
+  day = 'day',
+  week = 'week',
+  month = 'month',
+  year = 'year',
+}
+
+export const AddCronjobSchema = z.object({
+  cronTitle: z.string().min(1, 'Required'),
+  cronDescription: z.string(),
+  cronRepeatEvery: z.number().min(1, 'Required'),
+  cronRepeatEveryUnit: z.nativeEnum(RunEveryUnitOptions),
+  cronTimezone: z.string().min(1, 'Required'),
+});
+
 export type ConnectionTypes = 'Google Drive' | 'Notion' | 'Slack' | 'Discord';
 
 export type Connection = {
@@ -28,7 +45,7 @@ export type EditorCanvasTypes =
   | 'Condition'
   | 'AI'
   | 'Slack'
-  | 'Google Drive'
+  // | 'Google Drive'
   // | "Solana"
   | 'Cronjob'
   | 'Notion'
@@ -45,6 +62,14 @@ export type EditorCanvasCardType = {
   current: boolean;
   metadata: any;
   type: EditorCanvasTypes;
+};
+
+export type CronjobConfigType = {
+  cronTitle: string;
+  cronDescription: string;
+  cronRepeatEvery: number;
+  cronRepeatEveryUnit: RunEveryUnitOptions;
+  cronTimezone: string;
 };
 
 export type EditorNodeType = {

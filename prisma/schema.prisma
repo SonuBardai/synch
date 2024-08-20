@@ -121,4 +121,11 @@ model Workflows {
   description       String
   User              User     @relation(fields: [userId], references: [clerkId])
   userId            String
+
+  // cronjobs
+  cronTitle           String?
+  cronDescription     String?
+  cronRepeatEvery     Int?
+  cronRepeatEveryUnit String?
+  cronTimezone        String?
 }
