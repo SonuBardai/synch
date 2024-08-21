@@ -28,7 +28,12 @@ export const AddCronjobSchema = z.object({
   cronTimezone: z.string().min(1, 'Required'),
 });
 
-export type ConnectionTypes = 'Google Drive' | 'Notion' | 'Slack' | 'Discord';
+export type ConnectionTypes =
+  | 'Solana Wallet'
+  | 'Google Drive'
+  | 'Notion'
+  | 'Slack'
+  | 'Discord';
 
 export type Connection = {
   title: ConnectionTypes;

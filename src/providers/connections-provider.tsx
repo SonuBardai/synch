@@ -43,6 +43,8 @@ export type ConnectionProviderProps = {
   >;
   isLoading: boolean;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  walletAddress: string;
+  setWalletAddress: React.Dispatch<React.SetStateAction<string>>;
 };
 
 type ConnectionWithChildProps = {
@@ -85,6 +87,8 @@ const InitialValues: ConnectionProviderProps = {
   setSlackNode: () => undefined,
   setIsLoading: () => undefined,
   setWorkFlowTemplate: () => undefined,
+  walletAddress: '',
+  setWalletAddress: () => undefined,
 };
 
 const ConnectionsContext = createContext(InitialValues);
@@ -96,6 +100,9 @@ export const ConnectionsProvider = ({ children }: ConnectionWithChildProps) => {
   const [notionNode, setNotionNode] = useState(InitialValues.notionNode);
   const [slackNode, setSlackNode] = useState(InitialValues.slackNode);
   const [isLoading, setIsLoading] = useState(InitialValues.isLoading);
+  const [walletAddress, setWalletAddress] = useState(
+    InitialValues.walletAddress
+  );
   const [workflowTemplate, setWorkFlowTemplate] = useState(
     InitialValues.workflowTemplate
   );
@@ -113,6 +120,8 @@ export const ConnectionsProvider = ({ children }: ConnectionWithChildProps) => {
     setIsLoading,
     workflowTemplate,
     setWorkFlowTemplate,
+    walletAddress,
+    setWalletAddress,
   };
 
   return <Provider value={values}>{children}</Provider>;
