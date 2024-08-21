@@ -36,7 +36,8 @@ const EditorCanvasCardSingle = ({ data }: { data: EditorCanvasCardType }) => {
 
   return (
     <>
-      {data.type !== 'Trigger' && data.type !== 'Google Drive' && (
+      {data.type !== 'Trigger' && (
+        // data.type !== 'Google Drive' &&
         <CustomHandle
           type="target"
           position={Position.Top}
@@ -66,13 +67,13 @@ const EditorCanvasCardSingle = ({ data }: { data: EditorCanvasCardType }) => {
         <Badge variant="secondary" className="absolute right-2 top-2">
           {data.type}
         </Badge>
-        <div
+        {/* <div
           className={clsx('absolute left-3 top-4 h-2 w-2 rounded-full', {
             'bg-green-500': Math.random() < 0.6,
             'bg-orange-500': Math.random() >= 0.6 && Math.random() < 0.8,
             'bg-red-500': Math.random() >= 0.8,
           })}
-        ></div>
+        ></div> */}
       </Card>
       <CustomHandle type="source" position={Position.Bottom} id="a" />
     </>

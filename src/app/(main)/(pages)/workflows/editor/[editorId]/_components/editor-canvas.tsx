@@ -15,6 +15,7 @@ import ReactFlow, {
   applyEdgeChanges,
   addEdge,
   BackgroundVariant,
+  Node,
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 import EditorCanvasCardSingle from './editor-canvas-card-single';
@@ -164,6 +165,7 @@ const EditorCanvas = ({ workflow }: Props) => {
       'Custom Webhook': EditorCanvasCardSingle,
       'Google Calendar': EditorCanvasCardSingle,
       Cronjob: EditorCanvasCardSingle,
+      'Solana Wallet Balance': EditorCanvasCardSingle,
       Wait: EditorCanvasCardSingle,
     }),
     []
@@ -179,6 +181,13 @@ const EditorCanvas = ({ workflow }: Props) => {
     }
     setIsWorkFlowLoading(false);
   };
+
+  const onNodesDelete = useCallback(
+    (nodes: Node[]) => {
+      console.log('DELETED NODE: ', nodes);
+    },
+    [nodes]
+  );
 
   useEffect(() => {
     onGetWorkFlow();
@@ -210,6 +219,7 @@ const EditorCanvas = ({ workflow }: Props) => {
                 fitView
                 onClick={handleClickCanvas}
                 nodeTypes={nodeTypes}
+                onNodesDelete={onNodesDelete}
               >
                 <Controls position="top-left" />
                 <MiniMap

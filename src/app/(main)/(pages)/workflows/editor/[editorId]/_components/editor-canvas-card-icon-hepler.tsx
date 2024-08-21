@@ -14,6 +14,7 @@ import {
   Webhook,
   Zap,
   RefreshCcwDot,
+  Wallet,
 } from 'lucide-react';
 import { EditorCanvasTypes } from '@/lib/types';
 
@@ -41,6 +42,8 @@ const EditorCanvasIconHelper = ({ type }: Props) => {
       return <Calendar className="flex-shrink-0" size={30} />;
     case 'Cronjob':
       return <RefreshCcwDot className="flex-shrink-0" size={30} />;
+    case 'Solana Wallet Balance':
+      return <Wallet className="flex-shrink-0" size={30} />;
     case 'Trigger':
       return <MousePointerClickIcon className="flex-shrink-0" size={30} />;
     case 'Action':

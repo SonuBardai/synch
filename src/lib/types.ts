@@ -48,6 +48,7 @@ export type EditorCanvasTypes =
   // | 'Google Drive'
   // | "Solana"
   | 'Cronjob'
+  | 'Solana Wallet Balance'
   | 'Notion'
   | 'Custom Webhook'
   | 'Google Calendar'

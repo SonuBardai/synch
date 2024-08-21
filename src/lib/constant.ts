@@ -103,6 +103,10 @@ export const menuOptions = [
 ];
 
 export const EditorCanvasDefaultCardTypes = {
+  'Solana Wallet Balance': {
+    description: 'Get the balance of a wallet',
+    type: 'Action',
+  },
   Email: { description: 'Send and email to a user', type: 'Action' },
   Condition: {
     description: 'Boolean operator that creates different conditions lanes.',

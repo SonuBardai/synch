@@ -112,7 +112,8 @@ const ContentBasedOnTitle = ({
             onChange={(event) => onContentChange(nodeConnection, title, event)}
           />
 
-          {JSON.stringify(file) !== '{}' && title !== 'Google Drive' && (
+          {JSON.stringify(file) !== '{}' && (
+            // title !== 'Google Drive' &&
             <Card className="w-full">
               <CardContent className="px-2 py-3">
                 <div className="flex flex-col gap-4">
@@ -128,7 +129,7 @@ const ContentBasedOnTitle = ({
               </CardContent>
             </Card>
           )}
-          {title === 'Google Drive' && <GoogleDriveFiles />}
+          {/* {title === 'Google Drive' && <GoogleDriveFiles />} */}
           <ActionButton
             currentService={title}
             nodeConnection={nodeConnection}
