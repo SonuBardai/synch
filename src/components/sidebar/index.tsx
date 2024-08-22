@@ -34,15 +34,23 @@ const MenuOptions = (props: Props) => {
                     <Link
                       href={menuItem.href ?? '#'}
                       className={clsx(
-                        'group h-8 w-8 flex items-center justify-center  scale-[1.5] rounded-lg p-[3px]  cursor-pointer',
-                        {
-                          'dark:bg-[#2F006B] bg-[#EEE0FF] ':
-                            pathName === menuItem.href,
-                        }
+                        `group h-8 w-8 flex items-center justify-center  scale-[1.5] rounded-lg p-[3px]  cursor-pointer ${
+                          (menuItem.hrefs ?? []).some((href) =>
+                            pathName.startsWith(href)
+                          )
+                            ? 'dark:bg-[#2F006B] bg-[#EEE0FF]'
+                            : ''
+                        }`
                       )}
                     >
                       <menuItem.Component
-                        selected={pathName === menuItem.href}
+                        className={
+                          (menuItem.hrefs ?? []).some((href) =>
+                            pathName.startsWith(href)
+                          )
+                            ? 'fill-[#2F006B]'
+                            : ''
+                        }
                       />
                     </Link>
                   </li>
