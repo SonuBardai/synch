@@ -37,51 +37,34 @@ const Workflow = ({
   let parsedFlowPath: string[] = JSON.parse(flowPath!) ?? [];
   const parsedNodes: EditorNodeType[] = JSON.parse(nodes!) ?? [];
   const titles = parsedNodes.map((node) => node.data.title);
-  parsedFlowPath = Array.from(new Set([...parsedFlowPath, ...titles]));
+  const getPriority = (item: string) =>
+    item === 'Cronjob' ? 1 : item === 'Trigger' ? 2 : 3;
+  const sortedFlowPath = Array.from(
+    new Set([...parsedFlowPath, ...titles])
+  ).sort((a, b) => {
+    const priorityA = getPriority(a);
+    const priorityB = getPriority(b);
+
+    return priorityA - priorityB;
+  });
 
   return (
     <Card className="flex w-full items-center justify-between">
       <CardHeader className="flex flex-col gap-4">
         <Link href={`/workflows/editor/${id}`}>
           <div className="flex flex-row gap-2">
-            {parsedFlowPath.length === 0 ? (
+            {sortedFlowPath.length === 0 ? (
               <span className="text-destructive">[Empty flow]</span>
             ) : (
-              parsedFlowPath.map((item, index) => {
+              sortedFlowPath.map((item, index) => {
                 return (
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        {item === 'Google Drive' ? (
-                          <Image
-                            src="/googleDrive.png"
-                            alt="Google Drive"
-                            height={30}
-                            width={30}
-                            className="object-contain"
-                          />
-                        ) : item === 'Notion' ? (
-                          <Image
-                            src="/notion.png"
-                            alt="Google Drive"
-                            height={30}
-                            width={30}
-                            className="object-contain"
-                          />
-                        ) : item === 'Discord' ? (
-                          <Image
-                            src="/discord.png"
-                            alt="Google Drive"
-                            height={30}
-                            width={30}
-                            className="object-contain"
-                          />
-                        ) : (
-                          <EditorCanvasIconHelper
-                            key={index}
-                            type={item as EditorCanvasTypes}
-                          />
-                        )}
+                        <EditorCanvasIconHelper
+                          key={index}
+                          type={item as EditorCanvasTypes}
+                        />
                       </TooltipTrigger>
                       <TooltipContent>
                         <p>{item}</p>

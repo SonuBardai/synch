@@ -28,14 +28,6 @@ export const AddCronjobSchema = z.object({
   cronTimezone: z.string().min(1, 'Required'),
 });
 
-export enum ConnectionTypes {
-  SolanaWallet = 'Solana Wallet',
-  GoogleDrive = 'Google Drive',
-  Notion = 'Notion',
-  Slack = 'Slack',
-  Discord = 'Discord',
-}
-
 export enum NodeTypes {
   Trigger = 'Trigger',
   Cronjob = 'Cronjob',
@@ -48,7 +40,7 @@ export enum Actions {
   Notion = 'Notion',
   // Solana = 'Solana',
   // SolanaSendTransaction = 'Solana Send Transaction',
-  SolanaWalletBalance = 'Solana Wallet Balance',
+  SolanaWalletBalance = 'Solana Wallet',
   CustomWebhook = 'Custom Webhook',
   GoogleCalendar = 'Google Calendar',
   AI = 'AI',
@@ -57,6 +49,14 @@ export enum Actions {
   Action = 'Action',
   Discord = 'Discord',
   // GoogleDrive = 'Google Drive',
+}
+
+export enum ConnectionTypes {
+  SolanaWallet = Actions.SolanaWalletBalance,
+  // GoogleDrive = 'Google Drive',
+  Notion = Actions.Notion,
+  Slack = Actions.Slack,
+  Discord = Actions.Discord,
 }
 
 export type EditorCanvasTypes = Actions | Triggers | Cronjobs;

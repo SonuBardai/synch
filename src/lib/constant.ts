@@ -117,21 +117,34 @@ export type CardType = {
 
 export const EditorCanvasDefaultCardTypes: Record<EditorCanvasTypes, CardType> =
   {
-    'Solana Wallet Balance': {
+    [Cronjobs.Cronjob]: {
+      description: 'Run the workflow on a scheduled cronjob',
+      type: NodeTypes.Cronjob,
+    },
+
+    [Triggers.Trigger]: {
+      description: 'An event that starts the workflow.',
+      type: NodeTypes.Trigger,
+    },
+
+    [Actions.SolanaWalletBalance]: {
       description: 'Get the balance of a wallet',
       type: NodeTypes.Action,
     },
-    Email: { description: 'Send and email to a user', type: NodeTypes.Action },
-    Condition: {
+    [Actions.Email]: {
+      description: 'Send and email to a user',
+      type: NodeTypes.Action,
+    },
+    [Actions.Condition]: {
       description: 'Boolean operator that creates different conditions lanes.',
       type: NodeTypes.Action,
     },
-    AI: {
+    [Actions.AI]: {
       description:
         'Use the power of AI to summarize, respond, create and much more.',
       type: NodeTypes.Action,
     },
-    Slack: {
+    [Actions.Slack]: {
       description: 'Send a notification to slack',
       type: NodeTypes.Action,
     },
@@ -144,36 +157,28 @@ export const EditorCanvasDefaultCardTypes: Record<EditorCanvasTypes, CardType> =
     //     'Connect with Google drive to trigger actions or to create files and folders.',
     //   type: 'Trigger',
     // },
-    Notion: {
+    [Actions.Notion]: {
       description: 'Create entries directly in notion.',
       type: NodeTypes.Action,
     },
-    'Custom Webhook': {
+    [Actions.CustomWebhook]: {
       description:
         'Connect any app that has an API key and send data to your applicaiton.',
       type: NodeTypes.Action,
     },
-    Discord: {
+    [Actions.Discord]: {
       description: 'Post messages to your discord server',
       type: NodeTypes.Action,
     },
-    Cronjob: {
-      description: 'Run the workflow on a scheduled cronjob',
-      type: NodeTypes.Cronjob,
-    },
-    'Google Calendar': {
+    [Actions.GoogleCalendar]: {
       description: 'Create a calendar invite.',
       type: NodeTypes.Action,
     },
-    Trigger: {
-      description: 'An event that starts the workflow.',
-      type: NodeTypes.Trigger,
-    },
-    Action: {
+    [Actions.Action]: {
       description: 'An event that happens after the workflow begins',
       type: NodeTypes.Action,
     },
-    Wait: {
+    [Actions.Wait]: {
       description: 'Delay the next action step by using the wait timer.',
       type: NodeTypes.Action,
     },
@@ -192,7 +197,6 @@ export const CONNECTIONS: Connection[] = [
     description: 'Connect your solana wallet',
     image: '/solana.png',
     connectionKey: 'walletAddress',
-    // accessTokenKey: 'webhookURL',
   },
   {
     title: ConnectionTypes.Discord,

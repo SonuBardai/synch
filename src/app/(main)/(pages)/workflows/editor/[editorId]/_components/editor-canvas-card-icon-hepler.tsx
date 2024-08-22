@@ -1,20 +1,19 @@
 'use client';
 import React from 'react';
+import { TbBrandNotion } from 'react-icons/tb';
+import { SiGooglecalendar } from 'react-icons/si';
+import { TbCurrencySolana } from 'react-icons/tb';
+import { FaDiscord } from 'react-icons/fa6';
+import { FiSlack } from 'react-icons/fi';
 import {
-  Calendar,
   CircuitBoard,
-  Database,
   GitBranch,
-  HardDrive,
   Mail,
   MousePointerClickIcon,
-  Plus,
-  Slack,
   Timer,
   Webhook,
   Zap,
   RefreshCcwDot,
-  Wallet,
 } from 'lucide-react';
 import { Actions, Cronjobs, EditorCanvasTypes, Triggers } from '@/lib/types';
 
@@ -35,17 +34,19 @@ const EditorCanvasIconHelper = ({ type }: Props) => {
     case Actions.AI:
       return <CircuitBoard className="flex-shrink-0" size={30} />;
     case Actions.Slack:
-      return <Slack className="flex-shrink-0" size={30} />;
+      return <FiSlack className="flex-shrink-0" size={30} />;
     case Actions.Notion:
-      return <Database className="flex-shrink-0" size={30} />;
+      return <TbBrandNotion className="flex-shrink-0" size={30} />;
     case Actions.CustomWebhook:
       return <Webhook className="flex-shrink-0" size={30} />;
     case Actions.GoogleCalendar:
-      return <Calendar className="flex-shrink-0" size={30} />;
+      return <SiGooglecalendar className="flex-shrink-0" size={30} />;
     case Actions.SolanaWalletBalance:
-      return <Wallet className="flex-shrink-0" size={30} />;
+      return <TbCurrencySolana className="flex-shrink-0" size={30} />;
     case Actions.Action:
       return <Zap className="flex-shrink-0" size={30} />;
+    case Actions.Discord:
+      return <FaDiscord className="flex-shrink-0" size={30} />;
     case Actions.Wait:
       return <Timer className="flex-shrink-0" size={30} />;
     // case 'Google Drive':

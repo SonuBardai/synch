@@ -6,8 +6,8 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import Image from 'next/image';
 import Link from 'next/link';
+import EditorCanvasIconHelper from '../../workflows/editor/[editorId]/_components/editor-canvas-card-icon-hepler';
 
 type Props = {
   type: ConnectionTypes;
@@ -29,13 +29,8 @@ const ConnectionCard = ({
     <Card className="flex w-full items-center justify-between">
       <CardHeader className="flex flex-col gap-4">
         <div className="flex flex-row gap-2">
-          <Image
-            src={icon}
-            alt={title}
-            height={30}
-            width={30}
-            className="object-contain"
-          />
+          {/* @ts-ignore */}
+          <EditorCanvasIconHelper type={type} />
         </div>
         <div>
           <CardTitle className="text-lg">{title}</CardTitle>
