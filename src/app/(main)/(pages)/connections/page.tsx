@@ -108,8 +108,7 @@ const Connections = async (props: Props) => {
       </h1>
       <div className="relative flex flex-col gap-4">
         <section className="flex flex-col gap-4 p-6 text-muted-foreground">
-          Connect all your apps directly from here. You may need to connect
-          these apps regularly to refresh verification
+          Connect with Synchrony.
           {CONNECTIONS.map((connection) => (
             <ConnectionCard
               key={connection.title}

@@ -6,6 +6,7 @@ import { ClerkProvider } from '@clerk/nextjs';
 import ModalProvider from '@/providers/modal-provider';
 import { Toaster } from '@/components/ui/sonner';
 import { BillingProvider } from '@/providers/billing-provider';
+import AppWalletProvider from '@/providers/wallet-provider';
 
 const font = DM_Sans({ subsets: ['latin'] });
 
@@ -33,7 +34,7 @@ export default function RootLayout({
           >
             <BillingProvider>
               <ModalProvider>
-                {children}
+                <AppWalletProvider>{children}</AppWalletProvider>
                 <Toaster />
               </ModalProvider>
             </BillingProvider>

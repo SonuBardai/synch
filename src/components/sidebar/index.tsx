@@ -11,8 +11,8 @@ import {
 import { menuOptions } from '@/lib/constant';
 import clsx from 'clsx';
 import { Separator } from '@/components/ui/separator';
-import { Database, GitBranch, LucideMousePointerClick } from 'lucide-react';
 import { ModeToggle } from '../global/mode-toggle';
+// import Image from 'next/image';
 
 type Props = {};
 
@@ -24,6 +24,13 @@ const MenuOptions = (props: Props) => {
       <div className="flex items-center justify-center flex-col gap-8">
         <Link className="flex font-bold flex-row " href="/">
           synchrony.
+          {/* <Image
+            src="./logo.png"
+            height="600"
+            width="600"
+            className="object-cover object-left-top absolute h-full w-full inset-0"
+            alt="logo"
+          /> */}
         </Link>
         <TooltipProvider>
           {menuOptions.map((menuItem) => (

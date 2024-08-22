@@ -8,6 +8,7 @@ import {
 } from '@/components/ui/card';
 import Link from 'next/link';
 import EditorCanvasIconHelper from '../../workflows/editor/[editorId]/_components/editor-canvas-card-icon-hepler';
+import ConnectionWalletButton from '@/components/forms/ConnectionWalletButton';
 
 type Props = {
   type: ConnectionTypes;
@@ -18,13 +19,7 @@ type Props = {
   connected: {} & any;
 };
 
-const ConnectionCard = ({
-  description,
-  type,
-  icon,
-  title,
-  connected,
-}: Props) => {
+const ConnectionCard = ({ description, type, title, connected }: Props) => {
   return (
     <Card className="flex w-full items-center justify-between">
       <CardHeader className="flex flex-col gap-4">
@@ -42,14 +37,16 @@ const ConnectionCard = ({
           <div className="border-bg-primary rounded-lg border-2 px-3 py-2 font-bold text-white">
             Connected
           </div>
+        ) : title === ConnectionTypes.SolanaWallet ? (
+          <ConnectionWalletButton />
         ) : (
           <Link
             href={
-              title == 'Discord'
+              title == ConnectionTypes.Discord
                 ? (process.env.NEXT_PUBLIC_DISCORD_REDIRECT ?? '#')
-                : title == 'Notion'
+                : title == ConnectionTypes.Notion
                   ? (process.env.NEXT_PUBLIC_NOTION_AUTH_URL ?? '#')
-                  : title == 'Slack'
+                  : title == ConnectionTypes.Slack
                     ? (process.env.NEXT_PUBLIC_SLACK_REDIRECT ?? '#')
                     : '#'
             }
