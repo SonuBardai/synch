@@ -28,12 +28,44 @@ export const AddCronjobSchema = z.object({
   cronTimezone: z.string().min(1, 'Required'),
 });
 
-export type ConnectionTypes =
-  | 'Solana Wallet'
-  | 'Google Drive'
-  | 'Notion'
-  | 'Slack'
-  | 'Discord';
+export enum ConnectionTypes {
+  SolanaWallet = 'Solana Wallet',
+  GoogleDrive = 'Google Drive',
+  Notion = 'Notion',
+  Slack = 'Slack',
+  Discord = 'Discord',
+}
+
+export enum NodeTypes {
+  Trigger = 'Trigger',
+  Cronjob = 'Cronjob',
+  Action = 'Action',
+}
+
+export enum Actions {
+  Email = 'Email',
+  Slack = 'Slack',
+  Notion = 'Notion',
+  // Solana = 'Solana',
+  // SolanaSendTransaction = 'Solana Send Transaction',
+  SolanaWalletBalance = 'Solana Wallet Balance',
+  CustomWebhook = 'Custom Webhook',
+  GoogleCalendar = 'Google Calendar',
+  AI = 'AI',
+  Condition = 'Condition',
+  Wait = 'Wait',
+  Action = 'Action',
+  Discord = 'Discord',
+  // GoogleDrive = 'Google Drive',
+}
+
+export enum Triggers {
+  Trigger = 'Trigger',
+}
+
+export enum Cronjobs {
+  Cronjob = 'Cronjob',
+}
 
 export type Connection = {
   title: ConnectionTypes;
@@ -45,21 +77,7 @@ export type Connection = {
   slackSpecial?: boolean;
 };
 
-export type EditorCanvasTypes =
-  | 'Email'
-  | 'Condition'
-  | 'AI'
-  | 'Slack'
-  // | 'Google Drive'
-  // | "Solana"
-  | 'Cronjob'
-  | 'Solana Wallet Balance'
-  | 'Notion'
-  | 'Custom Webhook'
-  | 'Google Calendar'
-  | 'Trigger'
-  | 'Action'
-  | 'Wait';
+export type EditorCanvasTypes = Actions | Triggers | Cronjobs;
 
 export type EditorCanvasCardType = {
   title: string;

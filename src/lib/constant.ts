@@ -5,7 +5,15 @@ import Home from '@/components/icons/home';
 import Payment from '@/components/icons/payment';
 import Settings from '@/components/icons/settings';
 import Workflows from '@/components/icons/workflows';
-import { Connection } from './types';
+import {
+  Actions,
+  Connection,
+  ConnectionTypes,
+  Cronjobs,
+  EditorCanvasTypes,
+  NodeTypes,
+  Triggers,
+} from './types';
 
 export const clients = [...new Array(10)].map((client, index) => ({
   href: `/${index + 1}.png`,
@@ -102,62 +110,74 @@ export const menuOptions = [
   // { name: 'Logs', Component: Logs, href: '/logs' },
 ];
 
-export const EditorCanvasDefaultCardTypes = {
-  'Solana Wallet Balance': {
-    description: 'Get the balance of a wallet',
-    type: 'Action',
-  },
-  Email: { description: 'Send and email to a user', type: 'Action' },
-  Condition: {
-    description: 'Boolean operator that creates different conditions lanes.',
-    type: 'Action',
-  },
-  AI: {
-    description:
-      'Use the power of AI to summarize, respond, create and much more.',
-    type: 'Action',
-  },
-  Slack: { description: 'Send a notification to slack', type: 'Action' },
-  // Solana: {
-  //   description: "Action triggered from the Solana blockchain",
-  //   type: "Trigger",
-  // },
-  // 'Google Drive': {
-  //   description:
-  //     'Connect with Google drive to trigger actions or to create files and folders.',
-  //   type: 'Trigger',
-  // },
-  Notion: { description: 'Create entries directly in notion.', type: 'Action' },
-  'Custom Webhook': {
-    description:
-      'Connect any app that has an API key and send data to your applicaiton.',
-    type: 'Action',
-  },
-  Discord: {
-    description: 'Post messages to your discord server',
-    type: 'Action',
-  },
-  Cronjob: {
-    description: 'Run the workflow on a scheduled cronjob',
-    type: 'Trigger',
-  },
-  'Google Calendar': {
-    description: 'Create a calendar invite.',
-    type: 'Action',
-  },
-  Trigger: {
-    description: 'An event that starts the workflow.',
-    type: 'Trigger',
-  },
-  Action: {
-    description: 'An event that happens after the workflow begins',
-    type: 'Action',
-  },
-  Wait: {
-    description: 'Delay the next action step by using the wait timer.',
-    type: 'Action',
-  },
+export type CardType = {
+  type: NodeTypes;
+  description: string;
 };
+
+export const EditorCanvasDefaultCardTypes: Record<EditorCanvasTypes, CardType> =
+  {
+    'Solana Wallet Balance': {
+      description: 'Get the balance of a wallet',
+      type: NodeTypes.Action,
+    },
+    Email: { description: 'Send and email to a user', type: NodeTypes.Action },
+    Condition: {
+      description: 'Boolean operator that creates different conditions lanes.',
+      type: NodeTypes.Action,
+    },
+    AI: {
+      description:
+        'Use the power of AI to summarize, respond, create and much more.',
+      type: NodeTypes.Action,
+    },
+    Slack: {
+      description: 'Send a notification to slack',
+      type: NodeTypes.Action,
+    },
+    // Solana: {
+    //   description: "Action triggered from the Solana blockchain",
+    //   type: "Trigger",
+    // },
+    // 'Google Drive': {
+    //   description:
+    //     'Connect with Google drive to trigger actions or to create files and folders.',
+    //   type: 'Trigger',
+    // },
+    Notion: {
+      description: 'Create entries directly in notion.',
+      type: NodeTypes.Action,
+    },
+    'Custom Webhook': {
+      description:
+        'Connect any app that has an API key and send data to your applicaiton.',
+      type: NodeTypes.Action,
+    },
+    Discord: {
+      description: 'Post messages to your discord server',
+      type: NodeTypes.Action,
+    },
+    Cronjob: {
+      description: 'Run the workflow on a scheduled cronjob',
+      type: NodeTypes.Cronjob,
+    },
+    'Google Calendar': {
+      description: 'Create a calendar invite.',
+      type: NodeTypes.Action,
+    },
+    Trigger: {
+      description: 'An event that starts the workflow.',
+      type: NodeTypes.Trigger,
+    },
+    Action: {
+      description: 'An event that happens after the workflow begins',
+      type: NodeTypes.Action,
+    },
+    Wait: {
+      description: 'Delay the next action step by using the wait timer.',
+      type: NodeTypes.Action,
+    },
+  };
 
 export const CONNECTIONS: Connection[] = [
   // {
@@ -168,28 +188,28 @@ export const CONNECTIONS: Connection[] = [
   //   // alwaysTrue: true,
   // },
   {
-    title: 'Solana Wallet',
+    title: ConnectionTypes.SolanaWallet,
     description: 'Connect your solana wallet',
     image: '/solana.png',
     connectionKey: 'walletAddress',
     // accessTokenKey: 'webhookURL',
   },
   {
-    title: 'Discord',
+    title: ConnectionTypes.Discord,
     description: 'Connect your discord to send notification and messages',
     image: '/discord.png',
     connectionKey: 'discordNode',
     accessTokenKey: 'webhookURL',
   },
   {
-    title: 'Notion',
+    title: ConnectionTypes.Notion,
     description: 'Create entries in your notion dashboard and automate tasks.',
     image: '/notion.png',
     connectionKey: 'notionNode',
     accessTokenKey: 'accessToken',
   },
   {
-    title: 'Slack',
+    title: ConnectionTypes.Slack,
     description:
       'Use slack to send notifications to team members through your own custom bot.',
     image: '/slack.png',

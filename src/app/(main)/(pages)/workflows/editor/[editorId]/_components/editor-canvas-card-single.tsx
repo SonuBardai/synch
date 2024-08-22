@@ -1,6 +1,6 @@
-import { EditorCanvasCardType } from '@/lib/types';
+import { EditorCanvasCardType, Triggers } from '@/lib/types';
 import { useEditor } from '@/providers/editor-provider';
-import React, { MouseEventHandler, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { Position, useNodeId } from 'reactflow';
 import EditorCanvasIconHelper from './editor-canvas-card-icon-hepler';
 import CustomHandle from './custom-handle';
@@ -12,11 +12,12 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import clsx from 'clsx';
 
-type Props = {};
+type Props = {
+  data: EditorCanvasCardType;
+};
 
-const EditorCanvasCardSingle = ({ data }: { data: EditorCanvasCardType }) => {
+const EditorCanvasCardSingle = ({ data }: Props) => {
   const { dispatch, state } = useEditor();
   const nodeId = useNodeId();
   const logo = useMemo(() => {
@@ -36,7 +37,7 @@ const EditorCanvasCardSingle = ({ data }: { data: EditorCanvasCardType }) => {
 
   return (
     <>
-      {data.type !== 'Trigger' && (
+      {data.type !== Triggers.Trigger && (
         // data.type !== 'Google Drive' &&
         <CustomHandle
           type="target"

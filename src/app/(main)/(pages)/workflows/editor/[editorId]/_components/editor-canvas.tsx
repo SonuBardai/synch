@@ -1,5 +1,10 @@
 'use client';
-import { EditorCanvasCardType, EditorNodeType } from '@/lib/types';
+import {
+  EditorCanvasCardType,
+  EditorNodeType,
+  NodeTypes,
+  Triggers,
+} from '@/lib/types';
 import { useEditor } from '@/providers/editor-provider';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import ReactFlow, {
@@ -90,10 +95,10 @@ const EditorCanvas = ({ workflow }: Props) => {
       }
 
       const triggerAlreadyExists = state.editor.elements.find(
-        (node) => node.type === 'Trigger'
+        (node) => node.type === Triggers.Trigger
       );
 
-      if (type === 'Trigger' && triggerAlreadyExists) {
+      if (type === Triggers.Trigger && triggerAlreadyExists) {
         toast('Only one trigger can be added to automations at the moment');
         return;
       }
@@ -137,11 +142,11 @@ const EditorCanvas = ({ workflow }: Props) => {
             description: '',
             metadata: {},
             title: '',
-            type: 'Trigger',
+            type: Triggers.Trigger,
           },
           id: '',
           position: { x: 0, y: 0 },
-          type: 'Trigger',
+          type: Triggers.Trigger,
         },
       },
     });

@@ -3,6 +3,7 @@ import EditorProvider from '@/providers/editor-provider';
 import React from 'react';
 import EditorCanvas from './_components/editor-canvas';
 import { db } from '@/lib/db';
+import { Toaster } from 'sonner';
 
 const Page = async ({ params }: { params: { editorId: string } }) => {
   const { editorId } = params;
@@ -23,6 +24,7 @@ const Page = async ({ params }: { params: { editorId: string } }) => {
       <EditorProvider>
         <ConnectionsProvider>
           <EditorCanvas workflow={workflow} />
+          <Toaster />
         </ConnectionsProvider>
       </EditorProvider>
     </div>

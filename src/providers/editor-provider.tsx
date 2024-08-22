@@ -1,6 +1,6 @@
 'use client';
 
-import { EditorActions, EditorNodeType } from '@/lib/types';
+import { EditorActions, EditorNodeType, Triggers } from '@/lib/types';
 import { Dispatch, createContext, useContext, useReducer } from 'react';
 
 export type EditorNode = EditorNodeType;
@@ -34,11 +34,11 @@ const initialEditorState: EditorState['editor'] = {
       description: '',
       metadata: {},
       title: '',
-      type: 'Trigger',
+      type: Triggers.Trigger,
     },
     id: '',
     position: { x: 0, y: 0 },
-    type: 'Trigger',
+    type: Triggers.Trigger,
   },
   edges: [],
 };
@@ -59,7 +59,6 @@ const editorReducer = (
 ): EditorState => {
   switch (action.type) {
     case 'REDO':
-      console.log('REDO');
       if (state.history.currentIndex < state.history.history.length - 1) {
         const nextIndex = state.history.currentIndex + 1;
         const nextEditorState = { ...state.history.history[nextIndex] };
@@ -76,7 +75,6 @@ const editorReducer = (
       return state;
 
     case 'UNDO':
-      console.log('UNDO');
       if (state.history.currentIndex > 0) {
         const prevIndex = state.history.currentIndex - 1;
         const prevEditorState = { ...state.history.history[prevIndex] };
@@ -93,7 +91,6 @@ const editorReducer = (
       return state;
 
     case 'LOAD_DATA':
-      console.log('LOAD_DATA', action.payload);
       return {
         ...state,
         editor: {
@@ -103,7 +100,6 @@ const editorReducer = (
         },
       };
     case 'SELECTED_ELEMENT':
-      console.log('SELECTED_ELEMENT', action.payload);
       return {
         ...state,
         editor: {

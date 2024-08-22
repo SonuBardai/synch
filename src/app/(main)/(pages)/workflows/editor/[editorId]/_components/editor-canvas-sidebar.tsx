@@ -4,6 +4,7 @@ import {
   CronjobConfigType,
   EditorCanvasTypes,
   EditorNodeType,
+  NodeTypes,
 } from '@/lib/types';
 import { useNodeConnections } from '@/providers/connections-provider';
 import { useEditor } from '@/providers/editor-provider';
@@ -36,6 +37,7 @@ import { useFuzzieStore } from '@/store';
 import { Workflows } from '@prisma/client';
 import CronjobForm from '@/components/forms/cronjob-form';
 import { onSaveCronjob } from '../../../_actions/workflow-connections';
+import { toast } from 'sonner';
 
 type Props = {
   nodes: EditorNodeType[];
@@ -96,6 +98,7 @@ const EditorCanvasSidebar = ({ nodes, workflow }: Props) => {
                 workflow={workflow}
                 onUpdate={async (cronjobConfig: CronjobConfigType) => {
                   onSaveCronjob(workflow.id, cronjobConfig);
+                  toast.message('Cronjob template saved');
                 }}
               />
             ) : null}
@@ -105,8 +108,11 @@ const EditorCanvasSidebar = ({ nodes, workflow }: Props) => {
           {Object.entries(EditorCanvasDefaultCardTypes)
             .filter(
               ([_, cardType]) =>
-                (!nodes.length && cardType.type === 'Trigger') ||
-                (nodes.length && cardType.type === 'Action')
+                (!nodes.length &&
+                  [NodeTypes.Trigger, NodeTypes.Cronjob].includes(
+                    cardType.type
+                  )) ||
+                (nodes.length && [NodeTypes.Action].includes(cardType.type))
             )
             .map(([cardKey, cardValue]) => (
               <Card

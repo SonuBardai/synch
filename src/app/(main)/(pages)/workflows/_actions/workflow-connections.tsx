@@ -37,6 +37,17 @@ export const onFlowPublish = async (workflowId: string, state: boolean) => {
   return 'Workflow unpublished';
 };
 
+export const onRemoveFlow = async (workflowId: string) => {
+  const response = await db.workflows.delete({
+    where: {
+      id: workflowId,
+    },
+  });
+  if (response) {
+    return 'Workflow removed';
+  }
+};
+
 export const onCreateNodeTemplate = async (
   content: string,
   type: string,
