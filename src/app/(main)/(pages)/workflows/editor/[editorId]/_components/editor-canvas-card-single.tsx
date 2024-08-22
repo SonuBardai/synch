@@ -57,10 +57,10 @@ const EditorCanvasCardSingle = ({ data }: Props) => {
           <div>
             <CardTitle className="text-md">{data.title}</CardTitle>
             <CardDescription>
-              <p className="text-xs text-muted-foreground/50">
+              {/* <p className="text-xs text-muted-foreground/50">
                 <b className="text-muted-foreground/80">ID: </b>
                 {nodeId}
-              </p>
+              </p> */}
               <p>{data.description}</p>
             </CardDescription>
           </div>
