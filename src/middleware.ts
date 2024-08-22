@@ -1,6 +1,8 @@
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
 
 const isPublicRoute = createRouteMatcher([
+  `${process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL || '/login'}(.*)`,
+  `${process.env.NEXT_PUBLIC_CLERK_SIGN_UP_URL || '/signup'}(.*)`,
   '/',
   '/api/clerk-webhook',
   '/api/drive-activity/notification',
