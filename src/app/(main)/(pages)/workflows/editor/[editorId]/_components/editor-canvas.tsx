@@ -1,8 +1,11 @@
 'use client';
 import {
+  Actions,
+  CronjobConfigType,
+  Cronjobs,
   EditorCanvasCardType,
+  EditorCanvasTypes,
   EditorNodeType,
-  NodeTypes,
   Triggers,
 } from '@/lib/types';
 import { useEditor } from '@/providers/editor-provider';
@@ -21,6 +24,7 @@ import ReactFlow, {
   addEdge,
   BackgroundVariant,
   Node,
+  NodeProps,
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 import EditorCanvasCardSingle from './editor-canvas-card-single';
@@ -34,10 +38,15 @@ import { usePathname } from 'next/navigation';
 import { EditorCanvasDefaultCardTypes } from '@/lib/constant';
 import FlowInstance from './flow-instance';
 import EditorCanvasSidebar from './editor-canvas-sidebar';
-import { onGetNodesEdges } from '../../../_actions/workflow-connections';
+import {
+  onGetNodesEdges,
+  onSaveCronjob,
+} from '../../../_actions/workflow-connections';
 import { v4 } from 'uuid';
 import Spinner from '@/components/icons/spinner';
 import { Workflows } from '@prisma/client';
+import CronjobForm from '@/components/forms/cronjob-form';
+import SolanaWalletForm from '@/components/forms/solana-wallet-form';
 
 type Props = {
   workflow: Workflows;
@@ -64,7 +73,9 @@ const EditorCanvas = ({ workflow }: Props) => {
   const onNodesChange = useCallback(
     (changes: NodeChange[]) => {
       //@ts-ignore
-      setNodes((nds) => applyNodeChanges(changes, nds));
+      setNodes((nds) => {
+        return applyNodeChanges(changes, nds);
+      });
     },
     [setNodes]
   );
@@ -112,7 +123,7 @@ const EditorCanvas = ({ workflow }: Props) => {
         y: event.clientY,
       });
 
-      const newNode = {
+      const newNode: EditorNodeType = {
         id: v4(),
         type,
         position,
@@ -156,22 +167,55 @@ const EditorCanvas = ({ workflow }: Props) => {
     dispatch({ type: 'LOAD_DATA', payload: { edges, elements: nodes } });
   }, [nodes, edges]);
 
+  const CronjobCanvasCard = ({ data }: NodeProps) => {
+    return (
+      <EditorCanvasCardSingle
+        data={data}
+        popoverContent={
+          <CronjobForm
+            workflow={workflow}
+            onUpdate={async (cronjobConfig: CronjobConfigType) => {
+              onSaveCronjob(workflow.id, cronjobConfig);
+              toast.message('Cronjob template saved');
+            }}
+          />
+        }
+      />
+    );
+  };
+
+  const SolanaWalletBalanceCanvasCard = ({ data }: NodeProps) => {
+    return (
+      <EditorCanvasCardSingle
+        data={data}
+        popoverContent={
+          <SolanaWalletForm
+            walletAddress=""
+            onUpdate={async (newAddress: string) => {
+              console.log('newAddress: ', newAddress);
+            }}
+          />
+        }
+      />
+    );
+  };
+
   const nodeTypes = useMemo(
     () => ({
-      Action: EditorCanvasCardSingle,
-      Trigger: EditorCanvasCardSingle,
-      Email: EditorCanvasCardSingle,
-      Condition: EditorCanvasCardSingle,
-      AI: EditorCanvasCardSingle,
-      Slack: EditorCanvasCardSingle,
+      [Cronjobs.Cronjob]: CronjobCanvasCard,
+      [Triggers.Trigger]: EditorCanvasCardSingle,
+      [Actions.SolanaWalletBalance]: SolanaWalletBalanceCanvasCard,
+      [Actions.Action]: EditorCanvasCardSingle,
+      [Actions.Email]: EditorCanvasCardSingle,
+      [Actions.Condition]: EditorCanvasCardSingle,
+      [Actions.AI]: EditorCanvasCardSingle,
+      [Actions.Slack]: EditorCanvasCardSingle,
+      [Actions.Notion]: EditorCanvasCardSingle,
+      [Actions.Discord]: EditorCanvasCardSingle,
+      [Actions.CustomWebhook]: EditorCanvasCardSingle,
+      [Actions.GoogleCalendar]: EditorCanvasCardSingle,
+      [Actions.Wait]: EditorCanvasCardSingle,
       // 'Google Drive': EditorCanvasCardSingle,
-      Notion: EditorCanvasCardSingle,
-      Discord: EditorCanvasCardSingle,
-      'Custom Webhook': EditorCanvasCardSingle,
-      'Google Calendar': EditorCanvasCardSingle,
-      Cronjob: EditorCanvasCardSingle,
-      'Solana Wallet Balance': EditorCanvasCardSingle,
-      Wait: EditorCanvasCardSingle,
     }),
     []
   );

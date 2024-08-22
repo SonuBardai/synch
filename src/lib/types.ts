@@ -59,6 +59,8 @@ export enum Actions {
   // GoogleDrive = 'Google Drive',
 }
 
+export type EditorCanvasTypes = Actions | Triggers | Cronjobs;
+
 export enum Triggers {
   Trigger = 'Trigger',
 }
@@ -76,8 +78,6 @@ export type Connection = {
   alwaysTrue?: boolean;
   slackSpecial?: boolean;
 };
-
-export type EditorCanvasTypes = Actions | Triggers | Cronjobs;
 
 export type EditorCanvasCardType = {
   title: string;

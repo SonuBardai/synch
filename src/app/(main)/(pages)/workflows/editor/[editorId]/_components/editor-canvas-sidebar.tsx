@@ -51,15 +51,6 @@ const EditorCanvasSidebar = ({ nodes, workflow }: Props) => {
   const { nodeConnection } = useNodeConnections();
   const { googleFile, setSlackChannels } = useFuzzieStore();
 
-  const hasConfigureOption = () => {
-    return ['Cronjob'].includes(state.editor.selectedNode.data.type);
-  };
-
-  const [tab, setTab] = useState<TabOptions>('actions');
-  useEffect(() => {
-    hasConfigureOption() ? setTab('configure') : setTab('actions');
-  }, [state.editor.selectedNode]);
-
   useEffect(() => {
     if (state) {
       onConnections(nodeConnection, state, googleFile);
@@ -77,33 +68,12 @@ const EditorCanvasSidebar = ({ nodes, workflow }: Props) => {
 
   return (
     <aside>
-      <Tabs
-        defaultValue="actions"
-        className="h-screen overflow-scroll pb-24"
-        value={tab}
-        onValueChange={(newtab) => setTab(newtab as TabOptions)}
-      >
+      <Tabs defaultValue="actions" className="h-screen overflow-scroll pb-24">
         <TabsList className="bg-transparent">
-          {hasConfigureOption() && (
-            <TabsTrigger value="configure">Configure</TabsTrigger>
-          )}
           <TabsTrigger value="actions">Actions</TabsTrigger>
           <TabsTrigger value="settings">Settings</TabsTrigger>
         </TabsList>
         <Separator />
-        {hasConfigureOption() && (
-          <TabsContent value="configure" className="flex flex-col gap-4 p-4">
-            {state.editor.selectedNode.data.type === 'Cronjob' ? (
-              <CronjobForm
-                workflow={workflow}
-                onUpdate={async (cronjobConfig: CronjobConfigType) => {
-                  onSaveCronjob(workflow.id, cronjobConfig);
-                  toast.message('Cronjob template saved');
-                }}
-              />
-            ) : null}
-          </TabsContent>
-        )}
         <TabsContent value="actions" className="flex flex-col gap-4 p-4">
           {Object.entries(EditorCanvasDefaultCardTypes)
             .filter(
