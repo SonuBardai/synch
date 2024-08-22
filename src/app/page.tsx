@@ -34,7 +34,7 @@ export default function Home() {
           />
         </div>
       </section>
-      <InfiniteMovingCards
+      {/* <InfiniteMovingCards
         className="md:mt-[18rem] mt-[-100px]"
         items={clients}
         direction="right"
@@ -42,8 +42,8 @@ export default function Home() {
       />
       <section>
         <HeroParallax products={products}></HeroParallax>
-      </section>
-      <section className="mt-[-500px]">
+      </section> */}
+      <section className="mt-[100px]">
         <LampComponent />
         <div className="flex flex-wrap items-center justify-center flex-col md:flex-row gap-8 -mt-72">
           <CardContainer className="inter-var ">
