@@ -4,6 +4,7 @@ import { LampComponent } from '@/components/global/lamp';
 import Navbar from '@/components/global/navbar';
 import { Button } from '@/components/ui/button';
 import { CheckIcon } from 'lucide-react';
+import { Cover } from '@/components/ui/cover';
 
 export default function Home() {
   return (
@@ -15,16 +16,8 @@ export default function Home() {
           <ContainerScroll
             titleComponent={
               <div className="flex items-center flex-col">
-                <Button
-                  size={'lg'}
-                  className="p-8 mb-8 md:mb-0 text-2xl w-full sm:w-fit border-t-2 rounded-full border-[#4D4D4D] bg-[#1F1F1F] hover:bg-white group transition-all flex items-center justify-center gap-4 hover:shadow-xl hover:shadow-neutral-500 duration-500"
-                >
-                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-neutral-500 to-neutral-600  md:text-center font-sans group-hover:bg-gradient-to-r group-hover:from-black goup-hover:to-black">
-                    Start For Free Today
-                  </span>
-                </Button>
-                <h1 className="text-5xl md:text-8xl pb-12 bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-600 font-sans font-bold">
-                  Automate Your Work With Synchrony
+                <h1 className="text-4xl md:text-8xl pb-12 bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-600 font-sans font-bold">
+                  Build <Cover>Blazingly Fast</Cover> Workflows on Solana
                 </h1>
               </div>
             }
@@ -40,7 +33,7 @@ export default function Home() {
       <section>
         <HeroParallax products={products}></HeroParallax>
       </section> */}
-      <section className="mt-[100px]">
+      <section className="mt-[100px] w-full">
         <LampComponent />
         <div className="flex flex-wrap items-center justify-center flex-col md:flex-row gap-8 -mt-72">
           <CardContainer className="inter-var ">
