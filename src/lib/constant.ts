@@ -137,6 +137,10 @@ export const EditorCanvasDefaultCardTypes: Record<EditorCanvasTypes, CardType> =
       description: 'Get the balance of a wallet',
       type: NodeTypes.Action,
     },
+    [Actions.TransferSol]: {
+      description: 'Transfer SOL from your connected wallet',
+      type: NodeTypes.Action,
+    },
     [Actions.Email]: {
       description: 'Send and email to a user',
       type: NodeTypes.Action,

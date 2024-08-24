@@ -13,9 +13,10 @@ type Props = {
   children: React.ReactNode;
   edges: any[];
   nodes: any[];
+  isPublished: boolean;
 };
 
-const FlowInstance = ({ children, edges, nodes }: Props) => {
+const FlowInstance = ({ children, edges, nodes, isPublished }: Props) => {
   const pathname = usePathname();
   const [isFlow, setIsFlow] = useState([]);
   const { nodeConnection } = useNodeConnections();
@@ -60,7 +61,10 @@ const FlowInstance = ({ children, edges, nodes }: Props) => {
         <Button onClick={onFlowAutomation} disabled={isFlow.length < 1}>
           Save
         </Button>
-        <Button disabled={isFlow.length < 1} onClick={onPublishWorkflow}>
+        <Button
+          disabled={isFlow.length < 1 || isPublished}
+          onClick={onPublishWorkflow}
+        >
           Publish
         </Button>
       </div>

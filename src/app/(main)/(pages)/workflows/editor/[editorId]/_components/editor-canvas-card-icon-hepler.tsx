@@ -4,7 +4,7 @@ import React from 'react';
 import { TbBrandNotion } from 'react-icons/tb';
 import { SiGooglecalendar } from 'react-icons/si';
 import { TbCurrencySolana } from 'react-icons/tb';
-import { FaDiscord } from 'react-icons/fa6';
+import { FaDiscord, FaMoneyBillTransfer } from 'react-icons/fa6';
 import { FiSlack } from 'react-icons/fi';
 import {
   CircuitBoard,
@@ -44,6 +44,8 @@ const EditorCanvasIconHelper = ({ type }: Props) => {
       return <SiGooglecalendar className="flex-shrink-0" size={30} />;
     case Actions.SolanaWalletBalance:
       return <TbCurrencySolana className="flex-shrink-0" size={30} />;
+    case Actions.TransferSol:
+      return <FaMoneyBillTransfer className="flex-shrink-0" size={30} />;
     case Actions.Action:
       return <Zap className="flex-shrink-0" size={30} />;
     case Actions.Discord:
