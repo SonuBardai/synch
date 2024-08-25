@@ -1,16 +1,11 @@
 'use client';
 
-import {
-  CronjobConfigType,
-  EditorCanvasTypes,
-  EditorNodeType,
-  NodeTypes,
-} from '@/lib/types';
+import { EditorCanvasTypes, EditorNodeType, NodeTypes } from '@/lib/types';
 import { useNodeConnections } from '@/providers/connections-provider';
 import { useEditor } from '@/providers/editor-provider';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Separator } from '@/components/ui/separator';
 import { CONNECTIONS, EditorCanvasDefaultCardTypes } from '@/lib/constant';
 import {
@@ -35,16 +30,11 @@ import RenderConnectionAccordion from './render-connection-accordion';
 import RenderOutputAccordion from './render-output-accordian';
 import { useFuzzieStore } from '@/store';
 import { Workflows } from '@prisma/client';
-import CronjobForm from '@/components/forms/cronjob-form';
-import { onSaveCronjob } from '../../../_actions/workflow-connections';
-import { toast } from 'sonner';
 
 type Props = {
   nodes: EditorNodeType[];
   workflow: Workflows;
 };
-
-type TabOptions = 'actions' | 'configure' | 'settings';
 
 const EditorCanvasSidebar = ({ nodes, workflow }: Props) => {
   const { state } = useEditor();
@@ -71,7 +61,7 @@ const EditorCanvasSidebar = ({ nodes, workflow }: Props) => {
       <Tabs defaultValue="actions" className="h-screen overflow-scroll pb-24">
         <TabsList className="bg-transparent">
           <TabsTrigger value="actions">Actions</TabsTrigger>
-          <TabsTrigger value="settings">Settings</TabsTrigger>
+          {/* <TabsTrigger value="settings">Settings</TabsTrigger> */}
         </TabsList>
         <Separator />
         <TabsContent value="actions" className="flex flex-col gap-4 p-4">

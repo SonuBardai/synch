@@ -6,19 +6,33 @@ import { useBilling } from '@/providers/billing-provider';
 import { useModal } from '@/providers/modal-provider';
 import { Plus } from 'lucide-react';
 import React from 'react';
+import { onCreateWorkflow } from '../_actions/workflow-connections';
+import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 
 const WorkflowButton = () => {
   const { setOpen } = useModal();
   const { credits } = useBilling();
+  const router = useRouter();
 
   const handleClick = () => {
-    console.log('CLICKED');
     setOpen(
       <CustomModal
         title="Create a Workflow Automation"
         subheading="Workflows help you automate tasks."
       >
-        <Workflowform />
+        <Workflowform
+          onSubmit={async (values) => {
+            const workflow = await onCreateWorkflow(
+              values.name,
+              values.description
+            );
+            if (workflow) {
+              toast.message(workflow.message);
+              router.refresh();
+            }
+          }}
+        />
       </CustomModal>
     );
   };
@@ -29,7 +43,7 @@ const WorkflowButton = () => {
     <Button
       className="flex items-center gap-2"
       onClick={handleClick}
-      // {...(credits !== "0" // TODO: Check for credits when creating workflows
+      // {...(credits !== "0" // TODO: Check for credits when creating workflows when implementing billing
       //   ? {
       //       onClick: handleClick,
       //     }

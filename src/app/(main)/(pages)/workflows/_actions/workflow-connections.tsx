@@ -22,32 +22,6 @@ export const getGoogleListener = async () => {
   }
 };
 
-export const onFlowPublish = async (workflowId: string, state: boolean) => {
-  console.log(state);
-  const published = await db.workflows.update({
-    where: {
-      id: workflowId,
-    },
-    data: {
-      publish: state,
-    },
-  });
-
-  if (published.publish) return 'Workflow published';
-  return 'Workflow unpublished';
-};
-
-export const onRemoveFlow = async (workflowId: string) => {
-  const response = await db.workflows.delete({
-    where: {
-      id: workflowId,
-    },
-  });
-  if (response) {
-    return 'Workflow removed';
-  }
-};
-
 export const onCreateNodeTemplate = async (
   content: string,
   type: string,
@@ -189,6 +163,29 @@ export const onCreateWorkflow = async (name: string, description: string) => {
     });
 
     if (workflow) return { message: 'workflow created' };
+    return { message: 'Oops! try again' };
+  }
+};
+
+export const onUpdateWorkflow = async (
+  id: string,
+  name: string,
+  description: string
+) => {
+  const user = await currentUser();
+
+  if (user) {
+    const workflow = await db.workflows.update({
+      where: {
+        id,
+      },
+      data: {
+        name,
+        description,
+      },
+    });
+
+    if (workflow) return { message: 'workflow updated' };
     return { message: 'Oops! try again' };
   }
 };

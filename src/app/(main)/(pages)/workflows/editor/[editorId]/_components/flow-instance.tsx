@@ -3,11 +3,9 @@ import { Button } from '@/components/ui/button';
 import { useNodeConnections } from '@/providers/connections-provider';
 import { usePathname } from 'next/navigation';
 import React, { useCallback, useEffect, useState } from 'react';
-import {
-  onCreateNodesEdges,
-  onFlowPublish,
-} from '../_actions/workflow-connections';
+import { onCreateNodesEdges } from '../_actions/workflow-connections';
 import { toast } from 'sonner';
+import { onFlowPublish } from '@/actions/workflow-actions';
 
 type Props = {
   children: React.ReactNode;

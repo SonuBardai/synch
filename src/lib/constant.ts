@@ -129,7 +129,7 @@ export const EditorCanvasDefaultCardTypes: Record<EditorCanvasTypes, CardType> =
     },
 
     [Triggers.Trigger]: {
-      description: 'An event that starts the workflow.',
+      description: 'An external event that will trigger the workflow.',
       type: NodeTypes.Trigger,
     },
 

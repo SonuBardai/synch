@@ -1,19 +1,32 @@
 'use client';
+
 import React from 'react';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
-import { Trash } from 'lucide-react';
+import { Edit, Trash } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
-import { onFlowPublish, onRemoveFlow } from '../_actions/workflow-connections';
+import { onFlowPublish, onRemoveFlow } from '@/actions/workflow-actions';
+import { useModal } from '@/providers/modal-provider';
+import CustomModal from '@/components/global/custom-modal';
+import Workflowform from '@/components/forms/workflow-form';
+import { useRouter } from 'next/navigation';
+import { onUpdateWorkflow } from '../_actions/workflow-connections';
 
 const WorkflowActions = ({
   id,
+  name,
+  description,
   publish,
 }: {
   id: string;
+  name: string;
+  description: string;
   publish: boolean | null;
 }) => {
+  const { setOpen } = useModal();
+  const router = useRouter();
+
   const onPublishFlow = async (event: any) => {
     const response = await onFlowPublish(
       id,
@@ -25,7 +38,27 @@ const WorkflowActions = ({
   const onRemove = async () => {
     const response = await onRemoveFlow(id);
     if (response) toast.message(response);
-    window.location.reload();
+    router.refresh();
+  };
+
+  const onEdit = () => {
+    const handleEdit = async () => {
+      const updatedResponse = await onUpdateWorkflow(id, name, description);
+      if (updatedResponse) toast.message(updatedResponse.message);
+      router.refresh();
+    };
+
+    setOpen(
+      <CustomModal title="Update Workflow" subheading="">
+        <Workflowform
+          initialValues={{
+            name,
+            description,
+          }}
+          onSubmit={handleEdit}
+        />
+      </CustomModal>
+    );
   };
 
   return (
@@ -40,6 +73,9 @@ const WorkflowActions = ({
           defaultChecked={publish!}
         />
       </span>
+      <Button onClick={onEdit} variant="outline">
+        <Edit />
+      </Button>
       <Button onClick={onRemove} variant="destructive">
         <Trash />
       </Button>

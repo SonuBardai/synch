@@ -81,7 +81,12 @@ const Workflow = ({
           </div>
         </Link>
       </CardHeader>
-      <WorkflowActions id={id} publish={publish} />
+      <WorkflowActions
+        id={id}
+        name={name}
+        description={description}
+        publish={publish}
+      />
     </Card>
   );
 };
