@@ -6,8 +6,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model User {
@@ -103,8 +104,14 @@ model Connections {
   slackId          String?
 }
 
+enum WorkflowType {
+  Cronjob
+  Trigger
+}
+
 model Workflows {
-  id                String   @id @default(uuid())
+  id                String       @id @default(uuid())
+  type              WorkflowType @default(Cronjob)
   nodes             String?
   edges             String?
   name              String
@@ -117,12 +124,11 @@ model Workflows {
   notionDbId        String?
   flowPath          String?
   cronPath          String?
-  publish           Boolean? @default(false)
+  publish           Boolean?     @default(false)
   description       String
-  User              User     @relation(fields: [userId], references: [clerkId])
+  User              User         @relation(fields: [userId], references: [clerkId])
   userId            String
 
-  // cronjobs
   cronTitle           String?
   cronDescription     String?
   cronRepeatEvery     Int?
