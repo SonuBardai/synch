@@ -2,7 +2,7 @@
 
 import { Option } from '@/components/ui/multiple-selector';
 import { db } from '@/lib/db';
-import { CronjobConfigType } from '@/lib/types';
+import { CronjobConfigType, WorkflowTypes } from '@/lib/types';
 import { auth, currentUser } from '@clerk/nextjs/server';
 
 export const getGoogleListener = async () => {

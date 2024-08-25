@@ -28,9 +28,14 @@ export const AddCronjobSchema = z.object({
   cronTimezone: z.string().min(1, 'Required'),
 });
 
-export enum NodeTypes {
-  Trigger = 'Trigger',
+export enum WorkflowTypes {
   Cronjob = 'Cronjob',
+  Trigger = 'Trigger',
+}
+
+export enum NodeTypes {
+  Cronjob = WorkflowTypes.Cronjob,
+  Trigger = WorkflowTypes.Trigger,
   Action = 'Action',
 }
 
