@@ -44,25 +44,25 @@
   }
 
   .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
+    --background: 220 15% 12%; /* Dark Blue Background */
+    --foreground: 220 20% 95%; /* Light Blue-Gray Foreground */
+    --card: 220 15% 15%; /* Slightly Lighter Dark Blue Card */
+    --card-foreground: 220 20% 95%; /* Light Blue-Gray Card Foreground */
+    --popover: 220 15% 15%; /* Same as card */
+    --popover-foreground: 220 20% 95%; /* Same as card-foreground */
+    --primary: 220 50% 40%; /* Medium Blue for Primary */
+    --primary-foreground: 220 20% 95%; /* Light Blue-Gray Primary Foreground */
+    --secondary: 220 20% 20%; /* Darker Blue for Secondary */
+    --secondary-foreground: 220 20% 95%; /* Light Blue-Gray Secondary Foreground */
+    --muted: 220 20% 20%; /* Muted Blue */
+    --muted-foreground: 220 15% 65%; /* Muted Foreground with Lighter Blue-Gray */
+    --accent: 220 20% 20%; /* Accent with Dark Blue */
+    --accent-foreground: 220 20% 95%; /* Light Blue-Gray Accent Foreground */
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 220 20% 95%; /* Light Blue-Gray Destructive Foreground */
+    --border: 220 15% 20%; /* Border with Darker Blue */
+    --input: 220 15% 20%; /* Input with Darker Blue */
+    --ring: 220 70% 50%; /* Bright Blue Ring */
   }
 }
 
