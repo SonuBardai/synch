@@ -21,8 +21,6 @@ export const getFileMetaData = async () => {
     'oauth_google'
   );
 
-  clerkResponse.data[0].token;
-
   const accessToken = clerkResponse.data[0].token;
 
   oauth2Client.setCredentials({
