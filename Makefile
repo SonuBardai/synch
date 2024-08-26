@@ -8,3 +8,6 @@ build:
 
 run:
 	$(YARN) dev
+
+build:
+	$(YARN) build
