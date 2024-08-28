@@ -26,7 +26,7 @@ const PLANS = [
 
 export default function Home() {
   return (
-    <main className="flex items-center justify-center flex-col pb-20">
+    <main className="flex items-center justify-center w-full flex-col pb-20">
       <Navbar />
       <section className="h-screen w-full bg-white rounded-md !overflow-visible relative flex flex-col items-center antialiased">
         <div className="absolute inset-0  h-full w-full items-center px-5 py-24"></div>
