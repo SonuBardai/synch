@@ -11,3 +11,6 @@ run:
 
 build:
 	$(YARN) build
+
+migrate:
+	DEBUG="*" $(YARN) prisma migrate dev
