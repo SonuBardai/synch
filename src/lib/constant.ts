@@ -1,4 +1,3 @@
-import Category from '@/components/icons/category';
 import { BiSolidDashboard } from 'react-icons/bi';
 import { PiPlugsConnectedFill } from 'react-icons/pi';
 import {
@@ -10,6 +9,8 @@ import {
   NodeTypes,
   Triggers,
 } from './types';
+
+export const APP_NAME = 'Synch';
 
 export const clients = [...new Array(10)].map((client, index) => ({
   href: `/${index + 1}.png`,

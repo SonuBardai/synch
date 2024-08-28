@@ -3,7 +3,6 @@ import { ContainerScroll } from '@/components/global/container-scroll-animation'
 import { LampComponent } from '@/components/global/lamp';
 import Navbar from '@/components/global/navbar';
 import { CheckIcon } from 'lucide-react';
-import { Cover } from '@/components/ui/cover';
 import { FeaturesSection } from '@/components/global/features';
 
 const PLANS = [
@@ -34,8 +33,8 @@ export default function Home() {
           <ContainerScroll
             titleComponent={
               <div className="flex items-center flex-col">
-                <h1 className="text-4xl md:text-8xl pb-12 bg-clip-text text-transparent bg-gradient-to-b text-black to-white from-black font-sans font-bold">
-                  Build <Cover>Blazingly Fast</Cover> Workflows on Solana
+                <h1 className="text-4xl md:text-8xl pb-16 bg-clip-text text-transparent bg-gradient-to-b text-black to-white from-black font-sans font-bold">
+                  Streamline Your Workflows with Synch.
                 </h1>
               </div>
             }

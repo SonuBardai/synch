@@ -1,4 +1,4 @@
-import { CONNECTIONS } from '@/lib/constant';
+import { APP_NAME, CONNECTIONS } from '@/lib/constant';
 import React from 'react';
 import ConnectionCard from './_components/connection-card';
 import { currentUser } from '@clerk/nextjs/server';
@@ -107,7 +107,7 @@ const Connections = async (props: Props) => {
       </h1>
       <div className="relative flex flex-col gap-4">
         <section className="flex flex-col gap-4 p-6 text-muted-foreground">
-          Connect with Synchrony.
+          Connect with {APP_NAME}.
           {CONNECTIONS.map((connection) => (
             <ConnectionCard
               key={connection.title}

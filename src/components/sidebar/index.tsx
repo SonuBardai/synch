@@ -8,7 +8,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { menuOptions } from '@/lib/constant';
+import { APP_NAME, menuOptions } from '@/lib/constant';
 import clsx from 'clsx';
 import { Separator } from '@/components/ui/separator';
 import { ModeToggle } from '../global/mode-toggle';
@@ -23,7 +23,7 @@ const MenuOptions = (props: Props) => {
     <nav className=" dark:bg-background h-screen overflow-scroll  justify-between flex items-center flex-col  gap-10 py-6 px-2">
       <div className="flex items-center justify-center flex-col gap-8">
         <Link className="flex font-bold flex-row " href="/">
-          Synchrony
+          {APP_NAME}.
         </Link>
         <TooltipProvider>
           {menuOptions.map((menuItem) => {
