@@ -83,7 +83,7 @@ const Skeleton = () => {
     <div className="p-8 overflow-hidden h-full relative flex items-center justify-center">
       <div className="flex flex-row flex-shrink-0 justify-center items-center gap-2">
         {Integrations.map((item, i) => (
-          <Container className={`h-12 w-12 circle-${(i % 5) + 1}`}>
+          <Container className={`h-12 w-12 circle-${(i % 5) + 1}`} key={item}>
             <EditorCanvasIconHelper type={item} />
           </Container>
         ))}
