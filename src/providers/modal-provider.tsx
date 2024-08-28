@@ -35,7 +35,6 @@ const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
     modal: React.ReactNode,
     fetchData?: () => Promise<any>
   ) => {
-    console.log('Triggered setOpen');
     if (modal) {
       if (fetchData) {
         setData({ ...data, ...(await fetchData()) } || {});
@@ -50,11 +49,7 @@ const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
     setData({});
   };
 
-  console.log('Modal provider');
-
   if (!isMounted) return null;
-
-  console.log('Rendering modal provider');
 
   return (
     <ModalContext.Provider value={{ data, setOpen, setClose, isOpen }}>

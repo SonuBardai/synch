@@ -128,7 +128,6 @@ const triggerGoogleDriveNotifications = async (channelResourceId: string) => {
 };
 
 export async function POST(req: NextRequest) {
-  console.log('🔴 Changed');
   const headersList = headers();
   let channelType = '';
   let channelResourceId;

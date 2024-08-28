@@ -10,8 +10,6 @@ type Props = {
 };
 
 const RenderOutputAccordion = ({ state, nodeConnection }: Props) => {
-  console.log('STATE: ', state);
-  console.log('NODE CONNECTION: ', nodeConnection);
   const {
     googleFile,
     setGoogleFile,

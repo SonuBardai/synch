@@ -48,7 +48,6 @@ const CronjobForm = ({ workflow, onUpdate }: Props) => {
   });
 
   const handleSubmit = async (values: z.infer<typeof AddCronjobSchema>) => {
-    console.log('Values: ', values);
     setIsLoading(true);
     await onUpdate(values);
     setIsLoading(false);

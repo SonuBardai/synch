@@ -37,8 +37,6 @@ const WorkflowButton = () => {
     );
   };
 
-  console.log('CREDITS: ', credits);
-
   return (
     <Button
       className="flex items-center gap-2"

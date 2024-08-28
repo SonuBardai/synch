@@ -194,7 +194,6 @@ export const onSaveCronjob = async (
   workflowId: string,
   cronjobConfig: CronjobConfigType
 ) => {
-  console.log('onSaveCronjob', cronjobConfig);
   const response = await db.workflows.update({
     where: {
       id: workflowId,

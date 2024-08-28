@@ -64,8 +64,6 @@ export async function listBotChannels(
       headers: { Authorization: `Bearer ${slackAccessToken}` },
     });
 
-    console.log(data);
-
     if (!data.ok) throw new Error(data.error);
 
     if (!data?.channels?.length) return [];
@@ -97,7 +95,6 @@ const postMessageInSlackChannel = async (
         },
       }
     );
-    console.log(`Message posted successfully to channel ID: ${slackChannel}`);
   } catch (error: any) {
     console.error(
       `Error posting message to Slack channel ${slackChannel}:`,
