@@ -34,7 +34,7 @@ export default function Home() {
             titleComponent={
               <div className="flex items-center flex-col">
                 <h1 className="text-4xl md:text-8xl pb-16 bg-clip-text text-transparent bg-gradient-to-b text-black to-white from-black font-sans font-bold">
-                  Streamline Your Workflows with Synch.
+                  Streamline Your Solana Workflows with Synch.
                 </h1>
               </div>
             }
