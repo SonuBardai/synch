@@ -72,7 +72,7 @@ const EditorCanvas = ({ workflow }: Props) => {
 
   const onNodesChange = useCallback(
     (changes: NodeChange[]) => {
-      //@ts-ignore
+      // @ts-expect-error TODO: Fix typing here
       setNodes((nds) => {
         return applyNodeChanges(changes, nds);
       });
@@ -82,7 +82,6 @@ const EditorCanvas = ({ workflow }: Props) => {
 
   const onEdgesChange = useCallback(
     (changes: EdgeChange[]) =>
-      //@ts-ignore
       setEdges((eds) => applyEdgeChanges(changes, eds)),
     [setEdges]
   );
@@ -136,7 +135,6 @@ const EditorCanvas = ({ workflow }: Props) => {
           type: type,
         },
       };
-      //@ts-ignore
       setNodes((nds) => nds.concat(newNode));
     },
     [reactFlowInstance, state]

@@ -1,6 +1,6 @@
 'use client';
 
-import { animate } from 'framer-motion';
+import { animate, AnimationSequence } from 'framer-motion';
 import React, { useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { Actions } from '@/lib/types';
@@ -63,8 +63,7 @@ const Skeleton = () => {
   ];
 
   useEffect(() => {
-    // @ts-ignore
-    animate(sequence, {
+    animate(sequence as AnimationSequence, {
       repeat: Infinity,
       repeatDelay: 1,
     });

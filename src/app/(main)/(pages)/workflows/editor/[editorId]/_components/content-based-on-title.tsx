@@ -73,7 +73,7 @@ const ContentBasedOnTitle = ({
     // reqGoogle();
   }, []);
 
-  // @ts-ignore
+  // @ts-expect-error TODO: Fix typing here
   const nodeConnectionType = nodeConnection[nodeMapper[title]];
   if (!nodeConnectionType) return <p>Not connected</p>;
 

@@ -34,7 +34,7 @@ const Workflow = ({
   flowPath,
   nodes,
 }: Props) => {
-  let parsedFlowPath: string[] = JSON.parse(flowPath!) ?? [];
+  const parsedFlowPath: string[] = JSON.parse(flowPath!) ?? [];
   const parsedNodes: EditorNodeType[] = JSON.parse(nodes!) ?? [];
   const titles = parsedNodes.map((node) => node.data.title);
   const getPriority = (item: string) =>
@@ -58,7 +58,7 @@ const Workflow = ({
             ) : (
               sortedFlowPath.map((item, index) => {
                 return (
-                  <TooltipProvider>
+                  <TooltipProvider key={item}>
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <EditorCanvasIconHelper

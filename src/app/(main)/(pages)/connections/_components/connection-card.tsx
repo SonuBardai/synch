@@ -24,7 +24,7 @@ const ConnectionCard = ({ description, type, title, connected }: Props) => {
     <Card className="flex w-full items-center justify-between">
       <CardHeader className="flex flex-col gap-4">
         <div className="flex flex-row gap-2">
-          {/* @ts-expect-error */}
+          {/* @ts-expect-error type is the same as EditorCanvasType */}
           <EditorCanvasIconHelper type={type} />
         </div>
         <div>
