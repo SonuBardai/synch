@@ -32,6 +32,16 @@ model User {
   Slack                 Slack[]
   connections           Connections[]
   workflows             Workflows[]
+  solWalletId           String?
+  solWallet             SolWallet?
+}
+
+model SolWallet {
+  id      String @id @default(uuid())
+  address String
+  balance Int
+  userId  String @unique
+  user    User   @relation(fields: [userId], references: [clerkId])
 }
 
 model LocalGoogleCredential {
