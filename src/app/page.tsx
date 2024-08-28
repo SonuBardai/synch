@@ -1,12 +1,10 @@
 import { CardBody, CardContainer, CardItem } from '@/components/global/3d-card';
-import {
-  Card,
-  ContainerScroll,
-} from '@/components/global/container-scroll-animation';
+import { ContainerScroll } from '@/components/global/container-scroll-animation';
 import { LampComponent } from '@/components/global/lamp';
 import Navbar from '@/components/global/navbar';
 import { CheckIcon } from 'lucide-react';
 import { Cover } from '@/components/ui/cover';
+import { FeaturesSection } from '@/components/global/features';
 
 const PLANS = [
   {
@@ -17,12 +15,12 @@ const PLANS = [
   {
     title: 'Pro',
     price: 149,
-    features: ['10 Workflows', 'Unlimited steps'],
+    features: ['Unlimited Workflows', 'Unlimited steps', 'Unlimited support'],
   },
   {
     title: 'Annual',
-    price: 1490,
-    features: ['10 Workflows', 'Unlimited steps', 'Unlimited support'],
+    price: 999,
+    features: ['Unlimited Workflows', 'Unlimited steps', 'Unlimited support'],
   },
 ];
 
@@ -30,13 +28,13 @@ export default function Home() {
   return (
     <main className="flex items-center justify-center flex-col pb-20">
       <Navbar />
-      <section className="h-screen w-full  bg-neutral-950 rounded-md  !overflow-visible relative flex flex-col items-center  antialiased">
-        <div className="absolute inset-0  h-full w-full items-center px-5 py-24 [background:radial-gradient(125%_125%_at_50%_10%,#000_35%,#223_100%)]"></div>
+      <section className="h-screen w-full bg-white rounded-md !overflow-visible relative flex flex-col items-center antialiased">
+        <div className="absolute inset-0  h-full w-full items-center px-5 py-24"></div>
         <div className="flex flex-col mt-[-100px] md:mt-[-50px]">
           <ContainerScroll
             titleComponent={
               <div className="flex items-center flex-col">
-                <h1 className="text-4xl md:text-8xl pb-12 bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-600 font-sans font-bold">
+                <h1 className="text-4xl md:text-8xl pb-12 bg-clip-text text-transparent bg-gradient-to-b text-black to-white from-black font-sans font-bold">
                   Build <Cover>Blazingly Fast</Cover> Workflows on Solana
                 </h1>
               </div>
@@ -44,9 +42,12 @@ export default function Home() {
           />
         </div>
       </section>
-      <section className="mt-[100px] w-full">
+      <section className="w-full">
+        <FeaturesSection />
+      </section>
+      <section className="w-full">
         <LampComponent />
-        <div className="flex flex-wrap items-center justify-center flex-col md:flex-row gap-8 -mt-80">
+        <div className="flex flex-wrap items-center justify-center flex-col md:flex-row gap-8 -mt-[400px]">
           {PLANS.map((plan) => (
             <CardContainer key={plan.title} className="inter-var">
               <CardBody className="bg-gray-50 relative group/card  dark:hover:shadow-2xl dark:hover:shadow-neutral-500/[0.1] dark:bg-background dark:border-white/[0.2] border-black/[0.1] w-full md:!w-[350px] h-auto rounded-xl p-6 border">

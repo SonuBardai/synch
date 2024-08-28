@@ -7,7 +7,6 @@ import { TbCurrencySolana } from 'react-icons/tb';
 import { FaDiscord, FaMoneyBillTransfer } from 'react-icons/fa6';
 import { FiSlack } from 'react-icons/fi';
 import {
-  CircuitBoard,
   GitBranch,
   Mail,
   MousePointerClickIcon,
@@ -17,6 +16,7 @@ import {
   RefreshCcwDot,
 } from 'lucide-react';
 import { Actions, Cronjobs, EditorCanvasTypes, Triggers } from '@/lib/types';
+import { PiOpenAiLogo } from 'react-icons/pi';
 
 type Props = { type: EditorCanvasTypes };
 
@@ -33,7 +33,7 @@ const EditorCanvasIconHelper = ({ type }: Props) => {
     case Actions.Condition:
       return <GitBranch className="flex-shrink-0" size={30} />;
     case Actions.AI:
-      return <CircuitBoard className="flex-shrink-0" size={30} />;
+      return <PiOpenAiLogo className="flex-shrink-0" size={30} />;
     case Actions.Slack:
       return <FiSlack className="flex-shrink-0" size={30} />;
     case Actions.Notion:

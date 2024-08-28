@@ -10,9 +10,9 @@ type Props = {};
 const Navbar = async (props: Props) => {
   const user = await currentUser();
   return (
-    <header className="fixed right-0 left-0 top-0 py-4 px-4 bg-background/40 backdrop-blur-lg z-[100] flex items-center border-b-[1px] border-neutral-900 justify-between">
+    <header className="fixed right-0 left-0 top-0 py-4 px-4 bg-transparent backdrop-blur-lg z-[100] flex items-center justify-between">
       <aside className="flex items-center gap-[2px]">
-        <div className="text-3xl text-white font-bold">Synchrony</div>
+        <div className="text-3xl text-black font-bold">Synchrony</div>
       </aside>
       <aside className="flex items-center gap-4">
         <Link
