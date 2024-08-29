@@ -11,8 +11,8 @@ import AppWalletProvider from '@/providers/wallet-provider';
 const font = DM_Sans({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Synchrony.',
-  description: 'Automate Your SOL Workflows With Synchrony.',
+  title: 'Synch.',
+  description: 'Automate Your SOL Workflows With Synch.',
 };
 
 export default function RootLayout({
