@@ -1,32 +1,64 @@
 import { db } from '@/lib/db';
 import { Actions } from '@/lib/types';
 import { currentUser } from '@clerk/nextjs/server';
+import { User } from '@prisma/client';
+import { Connection, PublicKey } from '@solana/web3.js';
 import { NextRequest, NextResponse } from 'next/server';
 
-const executeNode = async (node: any) => {
-  switch (node.type) {
-    // case Cronjobs.Cronjob:
-    //   break;
+async function getSolanaWalletBalance(publicKeyString: string) {
+  try {
+    const connection = new Connection('https://api.mainnet-beta.solana.com');
+    const publicKey = new PublicKey(publicKeyString);
+    const balance = await connection.getBalance(publicKey);
+    const balanceInSol = balance / 1e9;
+    return balanceInSol;
+  } catch (error) {
+    console.error('Error getting wallet balance:', error);
+    return null;
+  }
+}
 
+const executeNode = async (node: any, user: User, context: any = {}) => {
+  let result = {};
+  switch (node.type) {
     case Actions.SolanaWalletBalance:
+      const solanaWalletId = user.solWalletId;
+      if (!solanaWalletId) {
+        throw new Error('Solana wallet not connected');
+      }
+      const solanaWallet = await db.solWallet.findFirst({
+        where: {
+          id: solanaWalletId,
+        },
+      });
+      if (!solanaWallet) {
+        throw new Error('Solana wallet not found');
+      }
+      const publicKey = solanaWallet?.address;
+      const balance = await getSolanaWalletBalance(publicKey);
+      result = { balance };
       break;
 
     case Actions.Condition:
+      console.log('Condition: ', context);
       break;
 
     case Actions.TransferSol:
-      console.log('Checking Solana Wallet Balance:', node);
+      console.log('Checking Solana Wallet Balance:', context);
       break;
 
     default:
       console.error('Unknown node type:', node.type);
   }
+  return { ...context, ...result };
 };
 
 const traverseAndExecute = async (
   currentNode: any,
   nodes: any[],
-  edges: any[]
+  edges: any[],
+  user: User,
+  state: any = {}
 ) => {
   const outgoingEdges = edges.filter(
     (edge: any) => edge.source === currentNode.id
@@ -35,20 +67,36 @@ const traverseAndExecute = async (
   for (const edge of outgoingEdges) {
     const targetNode = nodes.find((node: any) => node.id === edge.target);
     if (targetNode) {
-      await executeNode(targetNode);
-      await traverseAndExecute(targetNode, nodes, edges);
+      const newState = await executeNode(targetNode, user, state);
+      await traverseAndExecute(targetNode, nodes, edges, user, newState);
     }
   }
 };
+
 export async function POST(req: NextRequest) {
-  const user = await currentUser();
-  if (!user) {
+  const clerkUser = await currentUser();
+  if (!clerkUser) {
     return NextResponse.json(
       {
         message: 'Unauthorized',
       },
       {
         status: 401,
+      }
+    );
+  }
+  const user = await db.user.findUnique({
+    where: {
+      clerkId: clerkUser.id,
+    },
+  });
+  if (!user) {
+    return NextResponse.json(
+      {
+        message: 'User not found',
+      },
+      {
+        status: 404,
       }
     );
   }
@@ -69,7 +117,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    if (workflow.userId !== user.id) {
+    if (workflow.userId !== user.clerkId) {
       return NextResponse.json(
         {
           message: 'You are not authorized to execute this workflow',
@@ -89,7 +137,7 @@ export async function POST(req: NextRequest) {
     );
 
     for (const node of startNodes) {
-      await traverseAndExecute(node, nodes, edges);
+      await traverseAndExecute(node, nodes, edges, user, {});
     }
 
     return NextResponse.json(
