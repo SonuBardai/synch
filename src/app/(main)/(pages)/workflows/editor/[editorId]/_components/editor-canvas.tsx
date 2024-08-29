@@ -297,6 +297,7 @@ const EditorCanvas = ({ workflow }: Props) => {
             edges={edges}
             nodes={nodes}
             isPublished={workflow.publish || false}
+            workflowId={workflow.id}
           >
             <EditorCanvasSidebar nodes={nodes} workflow={workflow} />
           </FlowInstance>
