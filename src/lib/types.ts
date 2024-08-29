@@ -46,7 +46,7 @@ export enum Actions {
   // Solana = 'Solana',
   // SolanaSendTransaction = 'Solana Send Transaction',
   SolanaWalletBalance = 'Solana Wallet Balance',
-  TransferSol = 'Transfer SOL',
+  // TransferSol = 'Transfer SOL',
   CustomWebhook = 'Custom Webhook',
   GoogleCalendar = 'Google Calendar',
   AI = 'AI',

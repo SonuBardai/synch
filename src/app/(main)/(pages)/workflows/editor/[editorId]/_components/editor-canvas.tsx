@@ -203,7 +203,7 @@ const EditorCanvas = ({ workflow }: Props) => {
       [Cronjobs.Cronjob]: CronjobCanvasCard,
       [Triggers.Trigger]: EditorCanvasCardSingle,
       [Actions.SolanaWalletBalance]: SolanaWalletBalanceCanvasCard,
-      [Actions.TransferSol]: SolanaWalletBalanceCanvasCard,
+      // [Actions.TransferSol]: SolanaWalletBalanceCanvasCard,
       [Actions.Action]: EditorCanvasCardSingle,
       [Actions.Email]: EditorCanvasCardSingle,
       [Actions.Condition]: EditorCanvasCardSingle,
