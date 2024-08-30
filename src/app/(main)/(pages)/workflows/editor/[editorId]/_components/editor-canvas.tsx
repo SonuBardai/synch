@@ -191,6 +191,21 @@ const EditorCanvas = ({ workflow, user }: Props) => {
     return (
       <EditorCanvasCardSingle
         data={data}
+        otherDetails={[
+          {
+            label: 'Cadence',
+            value:
+              workflow.cronRepeatEvery && workflow.cronRepeatEveryUnit ? (
+                <span>
+                  Runs {workflow.cronRepeatEvery} time
+                  {workflow.cronRepeatEvery > 1 && 's'} every{' '}
+                  {workflow.cronRepeatEveryUnit}
+                </span>
+              ) : (
+                <span className="text-destructive">No cadence set</span>
+              ),
+          },
+        ]}
         popoverContent={
           <CronjobForm
             workflow={workflow}
@@ -208,6 +223,21 @@ const EditorCanvas = ({ workflow, user }: Props) => {
     return (
       <EditorCanvasCardSingle
         data={data}
+        otherDetails={[
+          {
+            label: 'Wallet Address',
+            value:
+              (data.metadata?.address ?? user.solWallet?.address) ? (
+                <span>
+                  {data.metadata?.address
+                    ? `${data.metadata.address.slice(0, 15)}...`
+                    : `${user.solWallet?.address?.slice(0, 15)}...`}
+                </span>
+              ) : (
+                <span className="text-destructive">No address set</span>
+              ),
+          },
+        ]}
         popoverContent={
           <SolanaWalletForm
             walletAddress={
@@ -270,10 +300,7 @@ const EditorCanvas = ({ workflow, user }: Props) => {
     <ResizablePanelGroup direction="horizontal">
       <ResizablePanel defaultSize={70}>
         <div className="flex h-full items-center justify-center">
-          <div
-            style={{ width: '100%', height: '100%', paddingBottom: '70px' }}
-            className="relative"
-          >
+          <div className="relative w-full h-full">
             {isWorkFlowLoading ? (
               <div className="absolute flex h-full w-full items-center justify-center">
                 <Spinner />

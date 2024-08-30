@@ -29,13 +29,10 @@ type Props = {
 
 const getCronjobsConfigFromWorkflow = (workflow: Workflows) => {
   return {
-    cronTitle: workflow.cronTitle ?? '',
-    cronDescription: workflow.cronDescription ?? '',
     cronRepeatEvery: workflow.cronRepeatEvery ?? 1,
     cronRepeatEveryUnit:
       (workflow.cronRepeatEveryUnit as RunEveryUnitOptions) ??
       RunEveryUnitOptions.minute,
-    cronTimezone: workflow.cronTimezone ?? 'America/New_York',
   };
 };
 
@@ -64,35 +61,6 @@ const CronjobForm = ({ workflow, onUpdate }: Props) => {
         onSubmit={form.handleSubmit(handleSubmit)}
       >
         <FormField
-          disabled={isLoading}
-          control={form.control}
-          name="cronTitle"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-lg">Cronjob Title</FormLabel>
-              <FormControl>
-                <Input {...field} placeholder="Title" />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="cronDescription"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-lg">Description</FormLabel>
-              <FormControl>
-                <Input {...field} placeholder="Description..." />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
           control={form.control}
           name="cronRepeatEvery"
           render={({ field }) => (
@@ -104,6 +72,16 @@ const CronjobForm = ({ workflow, onUpdate }: Props) => {
                   placeholder="1"
                   type="number"
                   defaultValue={1}
+                  onChange={(e) => {
+                    if (e.target.value === '') {
+                      form.setValue('cronRepeatEvery', 1);
+                    } else {
+                      form.setValue(
+                        'cronRepeatEvery',
+                        parseInt(e.target.value)
+                      );
+                    }
+                  }}
                 />
               </FormControl>
               <FormMessage />

@@ -21,11 +21,8 @@ export enum RunEveryUnitOptions {
 }
 
 export const AddCronjobSchema = z.object({
-  cronTitle: z.string().min(1, 'Required'),
-  cronDescription: z.string(),
   cronRepeatEvery: z.number().min(1, 'Required'),
   cronRepeatEveryUnit: z.nativeEnum(RunEveryUnitOptions),
-  cronTimezone: z.string().min(1, 'Required'),
 });
 
 export enum WorkflowTypes {
@@ -95,11 +92,8 @@ export type EditorCanvasCardType = {
 };
 
 export type CronjobConfigType = {
-  cronTitle: string;
-  cronDescription: string;
   cronRepeatEvery: number;
   cronRepeatEveryUnit: RunEveryUnitOptions;
-  cronTimezone: string;
 };
 
 export type EditorNodeType = {

@@ -28,7 +28,7 @@ import {
 } from '@/components/ui/accordion';
 import RenderConnectionAccordion from './render-connection-accordion';
 import RenderOutputAccordion from './render-output-accordian';
-import { useFuzzieStore } from '@/store';
+import { useSynchStore } from '@/store';
 import { Workflows } from '@prisma/client';
 
 type Props = {
@@ -39,7 +39,7 @@ type Props = {
 const EditorCanvasSidebar = ({ nodes, workflow }: Props) => {
   const { state } = useEditor();
   const { nodeConnection } = useNodeConnections();
-  const { googleFile, setSlackChannels } = useFuzzieStore();
+  const { googleFile, setSlackChannels } = useSynchStore();
 
   useEffect(() => {
     if (state) {
@@ -58,11 +58,7 @@ const EditorCanvasSidebar = ({ nodes, workflow }: Props) => {
 
   return (
     <aside>
-      <Tabs defaultValue="actions" className="h-screen overflow-scroll pb-24">
-        <TabsList className="bg-transparent">
-          <TabsTrigger value="actions">Actions</TabsTrigger>
-          {/* <TabsTrigger value="settings">Settings</TabsTrigger> */}
-        </TabsList>
+      <Tabs defaultValue="actions" className="h-screen overflow-scroll">
         <Separator />
         <TabsContent value="actions" className="flex flex-col gap-4 p-4">
           {Object.entries(EditorCanvasDefaultCardTypes)

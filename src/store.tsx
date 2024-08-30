@@ -10,7 +10,7 @@ export interface Option {
   [key: string]: string | boolean | undefined;
 }
 
-type FuzzieStore = {
+type SynchStore = {
   googleFile: any;
   setGoogleFile: (googleFile: any) => void;
   slackChannels: Option[];
@@ -19,7 +19,7 @@ type FuzzieStore = {
   setSelectedSlackChannels: (selectedSlackChannels: Option[]) => void;
 };
 
-export const useFuzzieStore = create<FuzzieStore>()((set) => ({
+export const useSynchStore = create<SynchStore>()((set) => ({
   googleFile: {},
   setGoogleFile: (googleFile: any) => set({ googleFile }),
   slackChannels: [],

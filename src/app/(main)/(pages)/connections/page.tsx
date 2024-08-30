@@ -73,7 +73,6 @@ const Connections = async (props: Props) => {
       database_id!,
       user.id
     );
-
     await onSlackConnect(
       app_id!,
       authed_user_id!,
