@@ -15,7 +15,7 @@ export const onCreateNodesEdges = async (
     data: {
       nodes,
       edges,
-      flowPath: flowPath,
+      flowPath,
     },
   });
 

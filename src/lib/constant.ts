@@ -12,6 +12,8 @@ import {
 
 export const APP_NAME = 'Synch';
 
+export const SOLANA_MAIN_NET_RPC_URL = 'https://api.mainnet-beta.solana.com';
+
 export const clients = [...new Array(10)].map((client, index) => ({
   href: `/${index + 1}.png`,
 }));

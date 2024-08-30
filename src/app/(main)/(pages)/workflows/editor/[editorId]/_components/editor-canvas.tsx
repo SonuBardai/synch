@@ -4,7 +4,6 @@ import {
   CronjobConfigType,
   Cronjobs,
   EditorCanvasCardType,
-  EditorCanvasTypes,
   EditorNodeType,
   Triggers,
 } from '@/lib/types';
@@ -68,6 +67,25 @@ const EditorCanvas = ({ workflow, user }: Props) => {
   const [reactFlowInstance, setReactFlowInstance] =
     useState<ReactFlowInstance>();
   const pathname = usePathname();
+  function updateNodeMetadata(nodeId: string, key: string, value: any) {
+    setNodes((nodes) =>
+      nodes.map((node) => {
+        if (node.id === nodeId) {
+          return {
+            ...node,
+            data: {
+              ...node.data,
+              metadata: {
+                ...node.data.metadata,
+                [key]: value,
+              },
+            },
+          };
+        }
+        return node;
+      })
+    );
+  }
 
   const onDragOver = useCallback((event: any) => {
     event.preventDefault();
@@ -186,16 +204,18 @@ const EditorCanvas = ({ workflow, user }: Props) => {
     );
   };
 
-  const SolanaWalletBalanceCanvasCard = ({ data }: NodeProps) => {
+  const SolanaWalletBalanceCanvasCard = ({ data, id }: NodeProps) => {
     return (
       <EditorCanvasCardSingle
         data={data}
         popoverContent={
           <SolanaWalletForm
-            walletAddress={user.solWallet?.address ?? ''}
+            walletAddress={
+              data.metadata?.address ?? user.solWallet?.address ?? ''
+            }
             userWalletAddress={user.solWallet?.address}
             onUpdate={async (newAddress: string) => {
-              console.log('newAddress: ', newAddress);
+              updateNodeMetadata(id, 'address', newAddress);
             }}
           />
         }

@@ -1,3 +1,4 @@
+import { SOLANA_MAIN_NET_RPC_URL } from '@/lib/constant';
 import { db } from '@/lib/db';
 import { Actions } from '@/lib/types';
 import { currentUser } from '@clerk/nextjs/server';
@@ -7,7 +8,9 @@ import { NextRequest, NextResponse } from 'next/server';
 
 async function getSolanaWalletBalance(publicKeyString: string) {
   try {
-    const connection = new Connection(process.env.SOLANA_RPC_URL!);
+    const rpcUrl = process.env.SOLANA_RPC_URL || SOLANA_MAIN_NET_RPC_URL;
+    console.log('RPC URL: ', rpcUrl);
+    const connection = new Connection(rpcUrl);
     const publicKey = new PublicKey(publicKeyString);
     const balance = await connection.getBalance(publicKey);
     const balanceInSol = balance / 1e9;
@@ -18,20 +21,23 @@ async function getSolanaWalletBalance(publicKeyString: string) {
   }
 }
 
-const solanaWalletBalanceNode = async (user: User) => {
-  const solanaWalletId = user.solWalletId;
-  if (!solanaWalletId) {
-    throw new Error('Solana wallet not connected');
+const solanaWalletBalanceNode = async (node: any, user: User) => {
+  let publicKey = node?.data?.metadata?.address;
+  if (!publicKey) {
+    const solanaWalletId = user.solWalletId;
+    if (!solanaWalletId) {
+      throw new Error('Solana wallet not connected');
+    }
+    const solanaWallet = await db.solWallet.findFirst({
+      where: {
+        id: solanaWalletId,
+      },
+    });
+    if (!solanaWallet) {
+      throw new Error('Solana wallet not found');
+    }
+    publicKey = solanaWallet?.address;
   }
-  const solanaWallet = await db.solWallet.findFirst({
-    where: {
-      id: solanaWalletId,
-    },
-  });
-  if (!solanaWallet) {
-    throw new Error('Solana wallet not found');
-  }
-  const publicKey = solanaWallet?.address;
   const balance = await getSolanaWalletBalance(publicKey);
   return balance;
 };
@@ -40,7 +46,7 @@ const executeNode = async (node: any, user: User, context: any = {}) => {
   let result = {};
   switch (node.type) {
     case Actions.SolanaWalletBalance:
-      const balance = await solanaWalletBalanceNode(user);
+      const balance = await solanaWalletBalanceNode(node, user);
       result = { balance };
       break;
 
@@ -54,6 +60,10 @@ const executeNode = async (node: any, user: User, context: any = {}) => {
 
     case Actions.Discord:
       console.log('Discord: ', context);
+      break;
+
+    case Actions.Slack:
+      console.log('Slack: ', context);
       break;
 
     // case Actions.TransferSol:    // Can't transfer SOL without the private key. Provide this as a separate service only if the key-pair is generated from the UI

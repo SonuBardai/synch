@@ -3,7 +3,7 @@ import EditorProvider from '@/providers/editor-provider';
 import React from 'react';
 import EditorCanvas from './_components/editor-canvas';
 import { db } from '@/lib/db';
-import { toast, Toaster } from 'sonner';
+import { Toaster } from 'sonner';
 import { currentUser } from '@clerk/nextjs/server';
 
 const Page = async ({ params }: { params: { editorId: string } }) => {
@@ -19,7 +19,6 @@ const Page = async ({ params }: { params: { editorId: string } }) => {
       },
     });
   } catch (err) {
-    toast.error('Workflow not found');
     console.log(err);
   }
   if (!workflow) {
