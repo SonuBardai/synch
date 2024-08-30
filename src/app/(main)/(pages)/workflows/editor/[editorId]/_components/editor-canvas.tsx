@@ -44,19 +44,23 @@ import {
 } from '../../../_actions/workflow-connections';
 import { v4 } from 'uuid';
 import Spinner from '@/components/icons/spinner';
-import { Workflows } from '@prisma/client';
+import { SolWallet, User, Workflows } from '@prisma/client';
 import CronjobForm from '@/components/forms/cronjob-form';
 import SolanaWalletForm from '@/components/forms/solana-wallet-form';
 
+type UserWithSolWallet = User & {
+  solWallet: SolWallet | null;
+};
 type Props = {
   workflow: Workflows;
+  user: UserWithSolWallet;
 };
 
 const initialNodes: EditorNodeType[] = [];
 
 const initialEdges: { id: string; source: string; target: string }[] = [];
 
-const EditorCanvas = ({ workflow }: Props) => {
+const EditorCanvas = ({ workflow, user }: Props) => {
   const { dispatch, state } = useEditor();
   const [nodes, setNodes] = useState(initialNodes);
   const [edges, setEdges] = useState(initialEdges);
@@ -188,7 +192,8 @@ const EditorCanvas = ({ workflow }: Props) => {
         data={data}
         popoverContent={
           <SolanaWalletForm
-            walletAddress=""
+            walletAddress={user.solWallet?.address ?? ''}
+            userWalletAddress={user.solWallet?.address}
             onUpdate={async (newAddress: string) => {
               console.log('newAddress: ', newAddress);
             }}
@@ -205,7 +210,7 @@ const EditorCanvas = ({ workflow }: Props) => {
       [Actions.SolanaWalletBalance]: SolanaWalletBalanceCanvasCard,
       // [Actions.TransferSol]: SolanaWalletBalanceCanvasCard,
       [Actions.Action]: EditorCanvasCardSingle,
-      [Actions.Email]: EditorCanvasCardSingle,
+      // [Actions.Email]: EditorCanvasCardSingle,
       [Actions.Condition]: EditorCanvasCardSingle,
       [Actions.AI]: EditorCanvasCardSingle,
       [Actions.Slack]: EditorCanvasCardSingle,

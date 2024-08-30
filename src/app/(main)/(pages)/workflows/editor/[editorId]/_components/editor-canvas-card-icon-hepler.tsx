@@ -28,8 +28,8 @@ const EditorCanvasIconHelper = ({ type }: Props) => {
     case Triggers.Trigger:
       return <MousePointerClickIcon className="flex-shrink-0" size={30} />;
 
-    case Actions.Email:
-      return <Mail className="flex-shrink-0" size={30} />;
+    // case Actions.Email:
+    //   return <Mail className="flex-shrink-0" size={30} />;
     case Actions.Condition:
       return <GitBranch className="flex-shrink-0" size={30} />;
     case Actions.AI:

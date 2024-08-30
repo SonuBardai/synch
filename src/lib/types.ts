@@ -40,7 +40,7 @@ export enum NodeTypes {
 }
 
 export enum Actions {
-  Email = 'Email',
+  // Email = 'Email',
   Slack = 'Slack',
   Notion = 'Notion',
   // Solana = 'Solana',

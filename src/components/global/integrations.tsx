@@ -70,7 +70,7 @@ const Skeleton = () => {
   }, []);
 
   const Integrations = [
-    Actions.Email,
+    // Actions.Email,
     Actions.Discord,
     Actions.GoogleCalendar,
     Actions.SolanaWalletBalance,

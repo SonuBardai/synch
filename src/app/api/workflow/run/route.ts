@@ -48,9 +48,9 @@ const executeNode = async (node: any, user: User, context: any = {}) => {
       console.log('Condition: ', context);
       break;
 
-    case Actions.Email:
-      console.log('Email: ', context);
-      break;
+    // case Actions.Email:
+    //   console.log('Email: ', context);
+    //   break;
 
     case Actions.Discord:
       console.log('Discord: ', context);

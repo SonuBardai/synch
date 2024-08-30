@@ -142,10 +142,10 @@ export const EditorCanvasDefaultCardTypes: Record<EditorCanvasTypes, CardType> =
     //   description: 'Transfer SOL from your connected wallet',
     //   type: NodeTypes.Action,
     // },
-    [Actions.Email]: {
-      description: 'Send and email to a user',
-      type: NodeTypes.Action,
-    },
+    // [Actions.Email]: {
+    //   description: 'Send and email to a user',
+    //   type: NodeTypes.Action,
+    // },
     [Actions.Condition]: {
       description: 'Boolean operator that creates different conditions lanes.',
       type: NodeTypes.Action,

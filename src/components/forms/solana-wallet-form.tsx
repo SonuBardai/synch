@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import {
@@ -29,9 +29,14 @@ type SolanaWalletFormValues = z.infer<typeof SolanaWalletSchema>;
 type Props = {
   walletAddress: string;
   onUpdate?: (address: string) => Promise<void>;
+  userWalletAddress?: string;
 };
 
-const SolanaWalletForm = ({ walletAddress, onUpdate }: Props) => {
+const SolanaWalletForm = ({
+  walletAddress,
+  onUpdate,
+  userWalletAddress,
+}: Props) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<SolanaWalletFormValues>({
@@ -40,6 +45,10 @@ const SolanaWalletForm = ({ walletAddress, onUpdate }: Props) => {
     defaultValues: {
       address: walletAddress,
     },
+  });
+  const currentAddress = useWatch({
+    control: form.control,
+    name: 'address',
   });
 
   const handleSubmit = async (values: SolanaWalletFormValues) => {
@@ -76,6 +85,11 @@ const SolanaWalletForm = ({ walletAddress, onUpdate }: Props) => {
             </FormItem>
           )}
         />
+        {currentAddress === userWalletAddress && (
+          <span className="text-sm text-gray-500">
+            [Auto filled to your connected wallet]
+          </span>
+        )}
         <Button
           type="submit"
           disabled={isLoading}
