@@ -13,4 +13,4 @@ build:
 	$(YARN) build
 
 migrate:
-	DEBUG="*" $(YARN) prisma migrate dev
+	$(YARN) prisma migrate dev

@@ -37,10 +37,7 @@ import { usePathname } from 'next/navigation';
 import { EditorCanvasDefaultCardTypes } from '@/lib/constant';
 import FlowInstance from './flow-instance';
 import EditorCanvasSidebar from './editor-canvas-sidebar';
-import {
-  onGetWorkFlow,
-  onSaveCronjob,
-} from '../../../_actions/workflow-connections';
+import { onGetWorkFlow } from '../../../_actions/workflow-connections';
 import { v4 } from 'uuid';
 import Spinner from '@/components/icons/spinner';
 import { Workflows } from '@prisma/client';

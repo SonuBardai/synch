@@ -128,7 +128,7 @@ export const onCreateNodeTemplate = async (
         id: workflowId,
       },
       data: {
-        ...cronjobConfig,
+        type: WorkflowTypes.Cronjob,
       },
     });
 
@@ -188,21 +188,6 @@ export const onUpdateWorkflow = async (
     if (workflow) return { message: 'workflow updated' };
     return { message: 'Oops! try again' };
   }
-};
-
-export const onSaveCronjob = async (
-  workflowId: string,
-  cronjobConfig: CronjobConfigType
-) => {
-  const response = await db.workflows.update({
-    where: {
-      id: workflowId,
-    },
-    data: {
-      ...cronjobConfig,
-    },
-  });
-  return response;
 };
 
 export const onGetWorkFlow = async (flowId: string) => {
