@@ -36,7 +36,7 @@ type Props = {
   workflow: Workflows;
 };
 
-const EditorCanvasSidebar = ({ nodes, workflow }: Props) => {
+const EditorCanvasSidebar = ({ nodes }: Props) => {
   const { state } = useEditor();
   const { nodeConnection } = useNodeConnections();
   const { googleFile, setSlackChannels } = useSynchStore();

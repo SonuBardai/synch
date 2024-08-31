@@ -209,6 +209,7 @@ const EditorCanvas = () => {
           <CronjobForm
             workflow={workflowState}
             onUpdate={async (cronjobConfig: CronjobConfigType) => {
+              console.log('workflow: ', workflowState);
               onSaveCronjob(workflowState.id, cronjobConfig);
               toast.message('Cronjob template saved');
             }}
