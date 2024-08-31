@@ -79,7 +79,7 @@ const EditorCanvasCardSingle = ({
                 <CardTitle className="text-md">{data.title}</CardTitle>
                 <CardDescription>
                   <p>{data.description}</p>
-                  {(otherDetails ?? []).map((item) => (
+                  {(otherDetails || []).map((item) => (
                     <p key={item.label} className="text-sm text-neutral-500">
                       {item.label}: {item.value}
                     </p>

@@ -279,8 +279,8 @@ const EditorCanvas = () => {
     const response = await onGetWorkFlow(pathname.split('/').pop()!);
     if (response) {
       setWorkflowState(response);
-      setEdges(JSON.parse(response.edges!));
-      setNodes(JSON.parse(response.nodes!));
+      setEdges(JSON.parse(response.edges || '[]'));
+      setNodes(JSON.parse(response.nodes || '[]'));
       setIsWorkFlowLoading(false);
     }
     setIsWorkFlowLoading(false);
