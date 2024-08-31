@@ -137,7 +137,7 @@ const deleteCronjob = async (workflow: Workflows) => {
   return res;
 };
 
-export const onFlowPublish = async (workflowId: string, state: boolean) => {
+const manageCronjob = async (workflowId: string, state: boolean) => {
   const workflow = await db.workflows.findUnique({
     where: {
       id: workflowId,
@@ -182,7 +182,7 @@ export const onFlowPublish = async (workflowId: string, state: boolean) => {
       },
     });
   } else {
-    const res = await deleteCronjob(workflow);
+    await deleteCronjob(workflow);
     const nodes = JSON.parse(workflow.nodes ?? '{}');
     const updatedNodes = nodes.map((node: any) => {
       if (node.type === NodeTypes.Cronjob) {
@@ -210,6 +210,19 @@ export const onFlowPublish = async (workflowId: string, state: boolean) => {
         nodes: JSON.stringify(updatedNodes),
       },
     });
+  }
+};
+
+export const onFlowPublish = async (workflowId: string, state: boolean) => {
+  // manageCronjob(workflowId, state);
+  const workflow = await db.workflows.findUnique({
+    where: {
+      id: workflowId,
+    },
+  });
+  if (!workflow) {
+    console.error('Workflow not found');
+    return;
   }
   const published = await db.workflows.update({
     where: {
