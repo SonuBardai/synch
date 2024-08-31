@@ -27,9 +27,10 @@ const WorkflowActions = ({
   const { setOpen } = useModal();
   const router = useRouter();
 
-  const onPublishFlow = async (event: any) => {
+  const onPublishFlow = async (event: React.MouseEvent<HTMLButtonElement>) => {
     const response = await onFlowPublish(
       id,
+      // @ts-expect-error ariachecked does exist in a switch
       event.target.ariaChecked === 'false'
     );
     if (response) toast.message(response);

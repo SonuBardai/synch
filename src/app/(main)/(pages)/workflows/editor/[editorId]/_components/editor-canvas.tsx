@@ -38,35 +38,33 @@ import { EditorCanvasDefaultCardTypes } from '@/lib/constant';
 import FlowInstance from './flow-instance';
 import EditorCanvasSidebar from './editor-canvas-sidebar';
 import {
-  onGetNodesEdges,
+  onGetWorkFlow,
   onSaveCronjob,
 } from '../../../_actions/workflow-connections';
 import { v4 } from 'uuid';
 import Spinner from '@/components/icons/spinner';
-import { SolWallet, User, Workflows } from '@prisma/client';
+import { Workflows } from '@prisma/client';
 import CronjobForm from '@/components/forms/cronjob-form';
 import SolanaWalletForm from '@/components/forms/solana-wallet-form';
-
-type UserWithSolWallet = User & {
-  solWallet: SolWallet | null;
-};
-type Props = {
-  workflow: Workflows;
-  user: UserWithSolWallet;
-};
+import { getUser, UserType } from '@/actions/get-user';
 
 const initialNodes: EditorNodeType[] = [];
 
 const initialEdges: { id: string; source: string; target: string }[] = [];
 
-const EditorCanvas = ({ workflow, user }: Props) => {
+const EditorCanvas = () => {
   const { dispatch, state } = useEditor();
+
+  const [user, setUser] = useState<UserType>({} as UserType);
+  const [workflowState, setWorkflowState] = useState({} as Workflows);
   const [nodes, setNodes] = useState(initialNodes);
   const [edges, setEdges] = useState(initialEdges);
   const [isWorkFlowLoading, setIsWorkFlowLoading] = useState<boolean>(false);
   const [reactFlowInstance, setReactFlowInstance] =
     useState<ReactFlowInstance>();
+
   const pathname = usePathname();
+
   function updateNodeMetadata(nodeId: string, key: string, value: any) {
     setNodes((nodes) =>
       nodes.map((node) => {
@@ -195,11 +193,12 @@ const EditorCanvas = ({ workflow, user }: Props) => {
           {
             label: 'Cadence',
             value:
-              workflow.cronRepeatEvery && workflow.cronRepeatEveryUnit ? (
+              workflowState.cronRepeatEvery &&
+              workflowState.cronRepeatEveryUnit ? (
                 <span>
-                  Runs {workflow.cronRepeatEvery} time
-                  {workflow.cronRepeatEvery > 1 && 's'} every{' '}
-                  {workflow.cronRepeatEveryUnit}
+                  Runs {workflowState.cronRepeatEvery} time
+                  {workflowState.cronRepeatEvery > 1 && 's'} every{' '}
+                  {workflowState.cronRepeatEveryUnit}
                 </span>
               ) : (
                 <span className="text-destructive">No cadence set</span>
@@ -208,9 +207,9 @@ const EditorCanvas = ({ workflow, user }: Props) => {
         ]}
         popoverContent={
           <CronjobForm
-            workflow={workflow}
+            workflow={workflowState}
             onUpdate={async (cronjobConfig: CronjobConfigType) => {
-              onSaveCronjob(workflow.id, cronjobConfig);
+              onSaveCronjob(workflowState.id, cronjobConfig);
               toast.message('Cronjob template saved');
             }}
           />
@@ -274,10 +273,11 @@ const EditorCanvas = ({ workflow, user }: Props) => {
     []
   );
 
-  const onGetWorkFlow = async () => {
+  const fetchWorkFlow = async () => {
     setIsWorkFlowLoading(true);
-    const response = await onGetNodesEdges(pathname.split('/').pop()!);
+    const response = await onGetWorkFlow(pathname.split('/').pop()!);
     if (response) {
+      setWorkflowState(response);
       setEdges(JSON.parse(response.edges!));
       setNodes(JSON.parse(response.nodes!));
       setIsWorkFlowLoading(false);
@@ -292,8 +292,14 @@ const EditorCanvas = ({ workflow, user }: Props) => {
     [nodes]
   );
 
+  const fetchUser = async () => {
+    const response = await getUser();
+    if (response) setUser(response);
+  };
+
   useEffect(() => {
-    onGetWorkFlow();
+    fetchWorkFlow();
+    fetchUser();
   }, []);
 
   return (
@@ -348,10 +354,10 @@ const EditorCanvas = ({ workflow, user }: Props) => {
           <FlowInstance
             edges={edges}
             nodes={nodes}
-            isPublished={workflow.publish || false}
-            workflowId={workflow.id}
+            isPublished={workflowState.publish || false}
+            workflowId={workflowState.id}
           >
-            <EditorCanvasSidebar nodes={nodes} workflow={workflow} />
+            <EditorCanvasSidebar nodes={nodes} workflow={workflowState} />
           </FlowInstance>
         )}
       </ResizablePanel>

@@ -205,15 +205,11 @@ export const onSaveCronjob = async (
   return response;
 };
 
-export const onGetNodesEdges = async (flowId: string) => {
-  const nodesEdges = await db.workflows.findUnique({
+export const onGetWorkFlow = async (flowId: string) => {
+  const workflow = await db.workflows.findUnique({
     where: {
       id: flowId,
     },
-    select: {
-      nodes: true,
-      edges: true,
-    },
   });
-  if (nodesEdges?.nodes && nodesEdges?.edges) return nodesEdges;
+  return workflow;
 };
