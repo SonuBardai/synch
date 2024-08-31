@@ -185,7 +185,7 @@ const EditorCanvas = () => {
     dispatch({ type: 'LOAD_DATA', payload: { edges, elements: nodes } });
   }, [nodes, edges]);
 
-  const CronjobCanvasCard = ({ data }: NodeProps) => {
+  const CronjobCanvasCard = ({ id, data }: NodeProps) => {
     return (
       <EditorCanvasCardSingle
         data={data}
@@ -193,12 +193,12 @@ const EditorCanvas = () => {
           {
             label: 'Cadence',
             value:
-              workflowState.cronRepeatEvery &&
-              workflowState.cronRepeatEveryUnit ? (
+              data.metadata.cronjobConfig?.cronRepeatEvery &&
+              data.metadata.cronjobConfig?.cronRepeatEveryUnit ? (
                 <span>
-                  Runs {workflowState.cronRepeatEvery} time
-                  {workflowState.cronRepeatEvery > 1 && 's'} every{' '}
-                  {workflowState.cronRepeatEveryUnit}
+                  Runs every {data.metadata.cronjobConfig?.cronRepeatEvery}{' '}
+                  {data.metadata.cronjobConfig?.cronRepeatEveryUnit}
+                  {data.metadata.cronjobConfig?.cronRepeatEvery > 1 && 's'}
                 </span>
               ) : (
                 <span className="text-destructive">No cadence set</span>
@@ -207,11 +207,14 @@ const EditorCanvas = () => {
         ]}
         popoverContent={
           <CronjobForm
-            workflow={workflowState}
+            cronjobConfig={{
+              cronRepeatEvery:
+                data.metadata?.cronjobConfig?.cronRepeatEvery ?? 1,
+              cronRepeatEveryUnit:
+                data.metadata?.cronjobConfig?.cronRepeatEveryUnit ?? 'minutes',
+            }}
             onUpdate={async (cronjobConfig: CronjobConfigType) => {
-              console.log('workflow: ', workflowState);
-              onSaveCronjob(workflowState.id, cronjobConfig);
-              toast.message('Cronjob template saved');
+              updateNodeMetadata(id, 'cronjobConfig', cronjobConfig);
             }}
           />
         }

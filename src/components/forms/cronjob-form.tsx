@@ -23,25 +23,16 @@ import { Loader2 } from 'lucide-react';
 import { Workflows } from '@prisma/client';
 
 type Props = {
-  workflow: Workflows;
+  cronjobConfig: CronjobConfigType;
   onUpdate: (cronjobConfig: CronjobConfigType) => Promise<any>;
 };
 
-const getCronjobsConfigFromWorkflow = (workflow: Workflows) => {
-  return {
-    cronRepeatEvery: workflow.cronRepeatEvery ?? 1,
-    cronRepeatEveryUnit:
-      (workflow.cronRepeatEveryUnit as RunEveryUnitOptions) ??
-      RunEveryUnitOptions.minute,
-  };
-};
-
-const CronjobForm = ({ workflow, onUpdate }: Props) => {
+const CronjobForm = ({ cronjobConfig, onUpdate }: Props) => {
   const [isLoading, setIsLoading] = useState(false);
   const form = useForm<z.infer<typeof AddCronjobSchema>>({
     mode: 'onChange',
     resolver: zodResolver(AddCronjobSchema),
-    defaultValues: getCronjobsConfigFromWorkflow(workflow),
+    defaultValues: cronjobConfig,
   });
 
   const handleSubmit = async (values: z.infer<typeof AddCronjobSchema>) => {
@@ -51,8 +42,8 @@ const CronjobForm = ({ workflow, onUpdate }: Props) => {
   };
 
   useEffect(() => {
-    form.reset(getCronjobsConfigFromWorkflow(workflow));
-  }, [workflow]);
+    form.reset(cronjobConfig);
+  }, [cronjobConfig]);
 
   return (
     <Form {...form}>
@@ -65,7 +56,7 @@ const CronjobForm = ({ workflow, onUpdate }: Props) => {
           name="cronRepeatEvery"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-lg">Run the cronjob every</FormLabel>
+              <FormLabel className="text-lg">Runs every</FormLabel>
               <FormControl>
                 <Input
                   {...field}
@@ -74,7 +65,7 @@ const CronjobForm = ({ workflow, onUpdate }: Props) => {
                   defaultValue={1}
                   onChange={(e) => {
                     if (e.target.value === '') {
-                      form.setValue('cronRepeatEvery', 1);
+                      form.setValue('cronRepeatEvery', 0);
                     } else {
                       form.setValue(
                         'cronRepeatEvery',
@@ -94,7 +85,7 @@ const CronjobForm = ({ workflow, onUpdate }: Props) => {
           name="cronRepeatEveryUnit"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-lg">Run the cronjob every</FormLabel>
+              <FormLabel className="text-lg">unit</FormLabel>
               <FormControl>
                 <select
                   {...field}
