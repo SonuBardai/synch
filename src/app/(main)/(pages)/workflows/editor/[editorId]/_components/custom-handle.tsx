@@ -18,14 +18,14 @@ const CustomHandle = (props: Props) => {
       isValidConnection={(e) => {
         const sourcesFromHandleInState = state.editor.edges.filter(
           (edge) => edge.source === e.source
-        ).length;
+        )?.length;
         const sourceNode = state.editor.elements.find(
           (node) => node.id === e.source
         );
         //target
         const targetFromHandleInState = state.editor.edges.filter(
           (edge) => edge.target === e.target
-        ).length;
+        )?.length;
 
         if (targetFromHandleInState === 1) return false;
         if (sourceNode?.type === 'Condition') return true;

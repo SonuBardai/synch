@@ -97,7 +97,10 @@ const FlowInstance = ({
     <div className="flex flex-col gap-2">
       <div className="flex items-center justify-between p-4">
         <div className="flex gap-3">
-          <Button onClick={onFlowAutomation} disabled={isFlow.length < 1}>
+          <Button
+            onClick={onFlowAutomation}
+            disabled={(isFlow?.length ?? 0) < 1}
+          >
             Save
           </Button>
           <Button

@@ -64,11 +64,11 @@ const EditorCanvasSidebar = ({ nodes }: Props) => {
           {Object.entries(EditorCanvasDefaultCardTypes)
             .filter(
               ([_, cardType]) =>
-                (!nodes.length &&
+                (!nodes?.length &&
                   [NodeTypes.Trigger, NodeTypes.Cronjob].includes(
                     cardType.type
                   )) ||
-                (nodes.length && [NodeTypes.Action].includes(cardType.type))
+                (nodes?.length && [NodeTypes.Action].includes(cardType.type))
             )
             .map(([cardKey, cardValue]) => (
               <Card
