@@ -8,6 +8,7 @@ import { toast } from 'sonner';
 import { onFlowPublish } from '@/actions/workflow-actions';
 import { FaPlay, FaSpinner } from 'react-icons/fa6';
 import axios from 'axios';
+import { Switch } from '@/components/ui/switch';
 
 type Props = {
   children: React.ReactNode;
@@ -40,10 +41,17 @@ const FlowInstance = ({
     if (flow) toast.message(flow.message);
   }, [nodeConnection, edges, nodes]);
 
-  const onPublishWorkflow = useCallback(async () => {
-    const response = await onFlowPublish(pathname.split('/').pop()!, true);
-    if (response) toast.message(response);
-  }, []);
+  const onPublishWorkflow = useCallback(
+    async (event: React.MouseEvent<HTMLButtonElement>) => {
+      const response = await onFlowPublish(
+        pathname.split('/').pop()!,
+        // @ts-expect-error ariachecked does exist in a switch
+        event.target.ariaChecked === 'false'
+      );
+      if (response) toast.message(response);
+    },
+    []
+  );
 
   const onAutomateFlow = async () => {
     const flows: any = [];
@@ -87,32 +95,36 @@ const FlowInstance = ({
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="flex gap-3 p-4">
-        <Button onClick={onFlowAutomation} disabled={isFlow.length < 1}>
-          Save
-        </Button>
-        <Button
-          disabled={isFlow.length < 1 || isPublished}
-          onClick={onPublishWorkflow}
-        >
-          Publish
-        </Button>
-        <Button
-          variant="secondary"
-          onClick={onRunWorkflow}
-          disabled={loadingTestRun}
-        >
-          <div>
-            {loadingTestRun ? (
-              <FaSpinner className="h-4 w-4 animate-spin" />
-            ) : (
-              <span className="flex gap-2 items-center">
-                <FaPlay />
-                <span>Test Run</span>
-              </span>
-            )}
-          </div>
-        </Button>
+      <div className="flex items-center justify-between p-4">
+        <div className="flex gap-3">
+          <Button onClick={onFlowAutomation} disabled={isFlow.length < 1}>
+            Save
+          </Button>
+          <Button
+            variant="secondary"
+            onClick={onRunWorkflow}
+            disabled={loadingTestRun}
+          >
+            <div>
+              {loadingTestRun ? (
+                <FaSpinner className="h-4 w-4 animate-spin" />
+              ) : (
+                <span className="flex gap-2 items-center">
+                  <FaPlay />
+                  <span>Test Run</span>
+                </span>
+              )}
+            </div>
+          </Button>
+        </div>
+        <div className="flex gap-3">
+          <span>Publish</span>
+          <Switch
+            id="airplane-mode"
+            onClick={onPublishWorkflow}
+            defaultChecked={isPublished!}
+          />
+        </div>
       </div>
       {children}
     </div>
