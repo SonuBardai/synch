@@ -9,7 +9,7 @@ const getSchedule = (
   repeatEvery: number,
   repeatEveryUnit: RunEveryUnitOptions
 ) => {
-  let schedule: any = {
+  const schedule: any = {
     timezone: 'UTC',
     expiresAt: 0,
     hours: [-1], // All hours
