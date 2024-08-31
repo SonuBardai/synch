@@ -9,7 +9,6 @@ import { NextRequest, NextResponse } from 'next/server';
 async function getSolanaWalletBalance(publicKeyString: string) {
   try {
     const rpcUrl = process.env.SOLANA_RPC_URL || SOLANA_MAIN_NET_RPC_URL;
-    console.log('RPC URL: ', rpcUrl);
     const connection = new Connection(rpcUrl);
     const publicKey = new PublicKey(publicKeyString);
     const balance = await connection.getBalance(publicKey);
