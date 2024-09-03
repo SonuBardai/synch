@@ -19,6 +19,36 @@ type Props = {
   connected: {} & any;
 };
 
+const DISCORD_SCOPES = [
+  'identify',
+  'guilds',
+  'connections',
+  'guilds.members.read',
+  'email',
+  'webhook.incoming',
+];
+
+export const buildDiscordUrl = () => {
+  const clientId = process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID;
+  if (!clientId) return '#';
+
+  const baseUrl =
+    process.env.NEXT_PUBLIC_BASE_URL ??
+    (typeof window !== 'undefined' && window.location.origin);
+  if (!baseUrl) return '#';
+
+  const redirectUri = `${baseUrl}/api/auth/callback/discord`;
+
+  const url = new URL('https://discord.com/oauth2/authorize');
+  url.searchParams.append('client_id', clientId);
+  url.searchParams.append('response_type', 'code');
+  url.searchParams.append('redirect_uri', redirectUri);
+  const scopes = DISCORD_SCOPES.join(' ');
+  url.searchParams.append('scope', scopes);
+
+  return url.toString();
+};
+
 const ConnectionCard = ({ description, type, title, connected }: Props) => {
   return (
     <Card className="flex w-full items-center justify-between">
@@ -34,7 +64,7 @@ const ConnectionCard = ({ description, type, title, connected }: Props) => {
       </CardHeader>
       <div className="flex flex-col items-center gap-2 p-4">
         {connected[type] ? (
-          <div className="border-bg-primary rounded-lg border-2 px-3 py-2 font-bold text-white">
+          <div className="border-bg-primary rounded-lg border-2 px-3 py-2 font-bold">
             Connected
           </div>
         ) : title === ConnectionTypes.SolanaWallet ? (
@@ -43,7 +73,7 @@ const ConnectionCard = ({ description, type, title, connected }: Props) => {
           <Link
             href={
               title == ConnectionTypes.Discord
-                ? (process.env.NEXT_PUBLIC_DISCORD_REDIRECT ?? '#')
+                ? buildDiscordUrl()
                 : title == ConnectionTypes.Notion
                   ? (process.env.NEXT_PUBLIC_NOTION_AUTH_URL ?? '#')
                   : title == ConnectionTypes.Slack
