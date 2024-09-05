@@ -40,14 +40,18 @@ import EditorCanvasSidebar from './editor-canvas-sidebar';
 import { onGetWorkFlow } from '../../../_actions/workflow-connections';
 import { v4 } from 'uuid';
 import Spinner from '@/components/icons/spinner';
-import { Workflows } from '@prisma/client';
+import { DiscordWebhook, Workflows } from '@prisma/client';
 import CronjobForm from '@/components/forms/cronjob-form';
 import SolanaWalletForm from '@/components/forms/solana-wallet-form';
 import { getUser, UserType } from '@/actions/get-user';
+import { onGetWebhooks } from '@/actions/webhook-connections';
 
 const initialNodes: EditorNodeType[] = [];
 
 const initialEdges: { id: string; source: string; target: string }[] = [];
+const initialWebhooks: { discord: DiscordWebhook | null | undefined } = {
+  discord: null,
+};
 
 const EditorCanvas = () => {
   const { dispatch, state } = useEditor();
@@ -56,6 +60,7 @@ const EditorCanvas = () => {
   const [workflowState, setWorkflowState] = useState({} as Workflows);
   const [nodes, setNodes] = useState(initialNodes);
   const [edges, setEdges] = useState(initialEdges);
+  const [webhooks, setWebhooks] = useState(initialWebhooks);
   const [isWorkFlowLoading, setIsWorkFlowLoading] = useState<boolean>(false);
   const [reactFlowInstance, setReactFlowInstance] =
     useState<ReactFlowInstance>();
@@ -253,6 +258,43 @@ const EditorCanvas = () => {
     );
   };
 
+  // const DiscordCanvasCard = ({ data, id }: NodeProps) => {
+  //   console.log('webhooks', webhooks);
+
+  //   return (
+  //     <EditorCanvasCardSingle
+  //       data={data}
+  //       otherDetails={[
+  //         {
+  //           label: 'Status',
+  //           value: webhooks.discord ? (
+  //             <span className="text-green-500">Connected</span>
+  //           ) : (
+  //             <span className="text-destructive">
+  //               Discord Not connected. Click{' '}
+  //               <Link href="/connections" className="text-blue-500 z-10">
+  //                 here
+  //               </Link>{' '}
+  //               to connect
+  //             </span>
+  //           ),
+  //         },
+  //       ]}
+  //       popoverContent={
+  //         <SolanaWalletForm
+  //           walletAddress={
+  //             data.metadata?.address ?? user.solWallet?.address ?? ''
+  //           }
+  //           userWalletAddress={user.solWallet?.address}
+  //           onUpdate={async (newAddress: string) => {
+  //             updateNodeMetadata(id, 'address', newAddress);
+  //           }}
+  //         />
+  //       }
+  //     />
+  //   );
+  // };
+
   const nodeTypes = useMemo(
     () => ({
       [Cronjobs.Cronjob]: CronjobCanvasCard,
@@ -274,6 +316,13 @@ const EditorCanvas = () => {
     []
   );
 
+  const onNodesDelete = useCallback(
+    (nodes: Node[]) => {
+      console.log('DELETED NODE: ', nodes);
+    },
+    [nodes]
+  );
+
   const fetchWorkFlow = async () => {
     setIsWorkFlowLoading(true);
     const response = await onGetWorkFlow(pathname.split('/').pop()!);
@@ -286,12 +335,15 @@ const EditorCanvas = () => {
     setIsWorkFlowLoading(false);
   };
 
-  const onNodesDelete = useCallback(
-    (nodes: Node[]) => {
-      console.log('DELETED NODE: ', nodes);
-    },
-    [nodes]
-  );
+  const fetchWebhooks = async () => {
+    setIsWorkFlowLoading(true);
+    const response = await onGetWebhooks();
+    if (response) {
+      setWebhooks(response);
+      setIsWorkFlowLoading(false);
+    }
+    setIsWorkFlowLoading(false);
+  };
 
   const fetchUser = async () => {
     const response = await getUser();

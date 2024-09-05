@@ -1,3 +1,7 @@
+import {
+  getDiscordConnectionUrl,
+  postContentToDiscordWebHook,
+} from '@/app/(main)/(pages)/connections/_actions/discord-connection';
 import { SOLANA_MAIN_NET_RPC_URL } from '@/lib/constant';
 import { db } from '@/lib/db';
 import { Actions } from '@/lib/types';
@@ -20,7 +24,7 @@ async function getSolanaWalletBalance(publicKeyString: string) {
   }
 }
 
-const solanaWalletBalanceNode = async (node: any, user: User) => {
+const getPublicKey = async (node: any, user: User) => {
   let publicKey = node?.data?.metadata?.address;
   if (!publicKey) {
     const solanaWalletId = user.solWalletId;
@@ -37,16 +41,42 @@ const solanaWalletBalanceNode = async (node: any, user: User) => {
     }
     publicKey = solanaWallet?.address;
   }
+  return publicKey;
+};
+
+const getWalletBalanceNode = async (publicKey: string) => {
   const balance = await getSolanaWalletBalance(publicKey);
   return balance;
+};
+
+const sendDiscordMessageNode = async (content: string) => {
+  const connection = await getDiscordConnectionUrl();
+  if (!connection) {
+    console.error('Discord connection not found');
+    return;
+  }
+  const response = await postContentToDiscordWebHook(content, connection.url);
+  return response;
+};
+
+const buildDiscordMessage = (context: any) => {
+  let message = '';
+  if (context.publicKey) {
+    message += `Address: ${context.publicKey}\n`;
+  }
+  if (context.balance) {
+    message += `Balance: ${context.balance}\n`;
+  }
+  return message;
 };
 
 const executeNode = async (node: any, user: User, context: any = {}) => {
   let result = {};
   switch (node.type) {
     case Actions.SolanaWalletBalance:
-      const balance = await solanaWalletBalanceNode(node, user);
-      result = { balance };
+      const publicKey = await getPublicKey(node, user);
+      const balance = await getWalletBalanceNode(publicKey);
+      result = { publicKey, balance };
       break;
 
     case Actions.Condition:
@@ -58,7 +88,8 @@ const executeNode = async (node: any, user: User, context: any = {}) => {
     //   break;
 
     case Actions.Discord:
-      console.log('Discord: ', context);
+      const message = buildDiscordMessage(context);
+      const response = await sendDiscordMessageNode(message);
       break;
 
     case Actions.Slack:

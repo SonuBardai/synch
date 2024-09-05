@@ -3,7 +3,7 @@ import { Option } from './content-based-on-title';
 import { ConnectionProviderProps } from '@/providers/connections-provider';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { postContentToWebHook } from '@/app/(main)/(pages)/connections/_actions/discord-connection';
+import { postContentToDiscordWebHook } from '@/app/(main)/(pages)/connections/_actions/discord-connection';
 import { onCreateNodeTemplate } from '../../../_actions/workflow-connections';
 import { toast } from 'sonner';
 import { onCreateNewPageInDatabase } from '@/app/(main)/(pages)/connections/_actions/notion-connection';
@@ -25,7 +25,7 @@ const ActionButton = ({
   const pathname = usePathname();
 
   const onSendDiscordMessage = useCallback(async () => {
-    const response = await postContentToWebHook(
+    const response = await postContentToDiscordWebHook(
       nodeConnection.discordNode.content,
       nodeConnection.discordNode.webhookURL
     );

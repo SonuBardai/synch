@@ -98,18 +98,16 @@ export const getDiscordConnectionUrl = async () => {
       where: {
         userId: user.id,
       },
-      select: {
-        url: true,
-        name: true,
-        guildName: true,
-      },
     });
 
     return webhook;
   }
 };
 
-export const postContentToWebHook = async (content: string, url: string) => {
+export const postContentToDiscordWebHook = async (
+  content: string,
+  url: string
+) => {
   if (content != '') {
     const posted = await axios.post(url, { content });
     if (posted) {
